@@ -1,22 +1,5 @@
 void main() {
-  List<int> numbers = [
-    100,
-    25,
-    64,
-    7,
-    -25,
-    47,
-    65,
-    0,
-    21,
-    17,
-    -32,
-    200,
-    -300,
-    400,
-    645,
-    214
-  ];
+  List<int> numbers = [100, 25, 64, 7, -25, 47, 65, 0, 21, 17, -32, 200, -300, 400, 645, 214];
   // find the biggest number inside the list
   // assume the biggest number is the first number
 
@@ -85,7 +68,6 @@ double getPi() {
 void printName() {
   // no argument and no output
   print("anas");
-
 }
 
 int minNumOfList({List<int>? data}) {

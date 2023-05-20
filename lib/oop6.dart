@@ -14,10 +14,8 @@ void main() {
   print(employee.toString());
   // override
 
-  Person person = Person(
-      "Sally", 20, "2004564654", 160, 55); // new object  15 Zainab address
-  Person person2 =
-      Person("Sally", 20, "2004564654", 160, 55); // 55   15  Zainab  16
+  Person person = Person("Sally", 20, "2004564654", 160, 55); // new object  15 Zainab address
+  Person person2 = Person("Sally", 20, "2004564654", 160, 55); // 55   15  Zainab  16
   print(person.toString()); // instance ob Person
   print(person == "anas"); //  false  Peron - String
   print(person == 20); //  false      Person - int
@@ -32,21 +30,17 @@ void main() {
 
 class Person {
   // parent super
-
   String name;
   int age;
   String ssn;
   double height;
   double weight;
-
   Person(this.name, this.age, this.ssn, this.height, this.weight);
-
   @override
   String toString() {
-    return "Name $name Age $age Ssn $ssn height $height weight $weight"; // instance of person
+    return "N $name Age $age Ssn $ssn height $height weight $weight"; // instance of person
   }
 
-  //
   @override
   bool operator ==(Object other) {
     if (other is Person) {
@@ -100,4 +94,4 @@ class Employee extends Person {
 //   mixin final(immutable)  Design       workshop
 // abstract class enum exceptions final static const
 // version control github gitlab bitbucket
- // bloc getx staterebuilder riverpod provider
+// bloc getx staterebuilder riverpod provider

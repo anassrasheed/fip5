@@ -1,5 +1,3 @@
-import 'package:fip5/oop3.dart';
-
 void main() {
   printName("Anas");
 // printName("Sami");
@@ -11,27 +9,27 @@ void main() {
   printName5();
   printName5("Norhan");
   printName6("ahmad");
-  printName6("ahmad",age: 10);
-  printName6("ahmad",age: 10,ssn: "9959555");
-  printName6("ahmad",ssn: "9959555");
-  Person person=Person(name: "asd", age: 10, weight: 55, height: 54, ssn: "asd");
+  printName6("ahmad", age: 10);
+  printName6("ahmad", age: 10, ssn: "9959555");
+  printName6("ahmad", ssn: "9959555");
+  /*Person person=Person(name: "asd", age: 10, weight: 55, height: 54, ssn: "asd");
   person.name="Saaed";
-  person.age;
+  person.age;*/
   // person._mobileNumber;
-  Employee employee=Employee("Hasan", 21, 600);
+/*  Employee employee=Employee("Hasan", 21, 600);
   print(employee.getName()); // hasan
   print(employee.age);
   print(employee.getAge());
 
-  print(employee.name); // hasan  getter
+  print(employee.name);*/ // hasan  getter
   // employee.name="Ahmad"; // setter
 
-  employee.height=200;
+  /*employee.height=200;
   employee.height=1500;
   print(employee.height);
   employee.salary=3000;
   print(employee.salary);
-  print(employee.height);
+  print(employee.height);*/
   // print(employee.getName());
   // print(employee.getAge());
   // print(employee.getSalary());
@@ -67,6 +65,7 @@ printName5([String? name]) {
   print("Your name is $name");
 }
 
-printName6(String name, {int age = 0, String? ssn}) { // function
+printName6(String name, {int age = 0, String? ssn}) {
+  // function
   print("Your name is $name");
 }

@@ -1,4 +1,3 @@
-import 'package:fip5/oop3.dart';
 import 'dart:math' as math;
 
 abstract class Shape {
@@ -12,7 +11,6 @@ abstract class Shape {
     print("hello");
   }
 }
-
 class Rectangle extends Shape {
   double height;
   double width;
