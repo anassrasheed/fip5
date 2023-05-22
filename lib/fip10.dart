@@ -3,4 +3,5 @@ class Phone {
   String ?phoneModel;
   String ?phoneScreenSize;
   int? phonePrice;
+  int? phonePrice2;
 }
