@@ -14,7 +14,6 @@ void main() {
   Weak.counter++; // 4
 // inheritance
 }
-
 //
 class Person {
   String? name; // nullable null

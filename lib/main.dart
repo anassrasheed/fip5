@@ -13,7 +13,6 @@ void main() {
   print(500); // syntax error
 
   // data types
-
   // variables
   // String
   print("anas is the flutter instructor"); // double qutation   single qutation
