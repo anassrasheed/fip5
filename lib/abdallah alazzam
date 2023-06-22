@@ -19,6 +19,6 @@ void main() {
   // Create an instance of the class
   AbdallahAlazzam abdallah = AbdallahAlazzam('Abdallah Alazzam', 26);
 
-  // Call the method
+
   abdallah.introduce();
 }
