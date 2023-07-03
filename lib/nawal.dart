@@ -1,0 +1,4 @@
+class Nawal{
+  String name="";
+
+}
