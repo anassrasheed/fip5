@@ -1,3 +1,4 @@
+import 'package:fip5/main_ui_2.dart';
 import 'package:fip5/task.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +17,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: TaskScreen(), // first screen
+      home: HomeScreen(), // first screen
       theme: ThemeData(
           // colors
           primaryColor: Colors.black,
