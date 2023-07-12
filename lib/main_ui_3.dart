@@ -61,8 +61,8 @@ class _MainUi3State extends State<MainUi3> {
                 )),
             TextButton(
                 onPressed: () {},
-                child: const Icon(Icons.add),
-                style: TextButton.styleFrom()),
+                style: TextButton.styleFrom(),
+                child: const Icon(Icons.add)),
             const FlutterLogo(size: 120, duration: Duration(milliseconds: 200)),
             TextButton(
               onPressed: () {},
@@ -190,6 +190,63 @@ class _MainUi3State extends State<MainUi3> {
                 ],
                 text: "Anas",
                 style: TextStyle(color: Colors.red, fontSize: 20))),
+
+            Align(
+                alignment: Alignment.bottomRight,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 40),
+                  child: Container(
+                    width: 200,
+                    height: 200,
+                    padding: EdgeInsets.only(right: 100),
+                    child: Icon(Icons.add),
+                    color: Colors.yellow,
+                  ),
+                )),
+            // Positioned(
+            //   top: 0,
+            //   left: 0,
+            //   // bottom: 0,
+            //   // right: 0,
+            //   child: Container(
+            //     color: Colors.red,
+            //     width: 100,
+            //     height: 50, // 100
+            //   ),
+            // ),
+            Stack(
+              children: [
+                AspectRatio(
+                  aspectRatio: 16 / 9,
+                  child: Container(
+                    color: Colors.black,
+                  ),
+                ),
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  // bottom: 0,
+                  // right: 0,
+                  child: Container(
+                    color: Colors.red,
+                    width: 100,
+                    height: 50, // 100
+                  ),
+                ),
+                Positioned(
+                  top: 100,
+                  left: 150,
+                  // bottom: 0,
+                  // right: 0,
+                  child: Container(
+                    color: Colors.green,
+                    width: 100,
+                    height: 50, // 100
+                  ),
+                ),
+              ],
+            ),
+
             const SizedBox(
               height: 300,
             ),
