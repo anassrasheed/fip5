@@ -7,7 +7,31 @@ class ExpandedExampleScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      body: buildWrap(context),
+      body: Column(
+        children: [
+          _buildTransform(),
+          SizedBox(
+            height: 200,
+          ),
+          Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: Colors.red)),
+            width: MediaQuery.of(context).size.width, // 450
+            height: 200,
+            child: Image.asset("assets/normal_logo.jpg",fit: BoxFit.cover),
+          ),
+          // Image.asset("assets/normal_logo.jpg",fit: BoxFit.cover)
+          // Container(
+          //   decoration: BoxDecoration(
+          //       borderRadius: BorderRadius.circular(12),
+          //       border: Border.all(color: Colors.red)),
+          //   width: MediaQuery.of(context).size.width,
+          //   height: 100,
+          //   child: Image.asset("assets/normal_logo.jpg"),
+          // )
+        ],
+      ),
     ));
   }
 
@@ -88,16 +112,75 @@ class ExpandedExampleScreen extends StatelessWidget {
 
   // listView
 
+  Widget _buildTransform() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Transform.rotate(
+            child: Container(
+              width: 50,
+              height: 50,
+              color: Colors.blue,
+            ),
+            angle: 90),
+        Transform.scale(
+            child: Container(
+              width: 50,
+              height: 50,
+              color: Colors.red,
+            ),
+            scale: 5.5),
+        Container(
+            width: 100,
+            height: 100,
+            color: Colors.yellow,
+            child: Transform.translate(
+                child: Container(
+                  width: 50,
+                  height: 50,
+                  color: Colors.black,
+                ),
+                offset: Offset(-20, 200))),
+        // Transform.scale(
+        //   scale: 1.5,
+        //   child: Container(
+        //     width: 50,
+        //     height: 50,
+        //     color: Colors.blue,
+        //   ),
+        // ),
+        // Transform.translate(
+        //   offset: Offset(0, 1),
+        //   child: Container(
+        //     width: 50,
+        //     height: 50,
+        //     color: Colors.yellow,
+        //   ),
+        // ),
+        // Container(
+        //   width: 50,
+        //   height: 50,
+        //   color: Colors.red,
+        // ),
+      ],
+    );
+  }
+
   Widget buildWrap(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
-      child: Wrap( // chips
-        direction: Axis.horizontal, // row
+      child: Wrap(
+        // chips
+        direction: Axis.horizontal,
+        // row
         // row column
-        alignment: WrapAlignment.center,  // mainAxisAlignmrnt
-        crossAxisAlignment: WrapCrossAlignment.center, // crossAxisAlignmrnt
-        runAlignment: WrapAlignment.center, // animation
+        alignment: WrapAlignment.center,
+        // mainAxisAlignmrnt
+        crossAxisAlignment: WrapCrossAlignment.center,
+        // crossAxisAlignmrnt
+        runAlignment: WrapAlignment.center,
+        // animation
         spacing: 10,
         children: [
           Container(
