@@ -8,6 +8,7 @@ class TaskScreen extends StatefulWidget {
 }
 
 class _TaskScreenState extends State<TaskScreen> {
+
   @override
   Widget build(BuildContext context) {
     print(MediaQuery.of(context).size.width);

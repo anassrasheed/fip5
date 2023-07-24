@@ -1,9 +1,11 @@
 import 'package:fip5/main_ui_2.dart';
 import 'package:fip5/task.dart';
 import 'package:fip5/task_ui.dart';
+import 'package:fip5/textfields_example.dart';
 import 'package:flutter/material.dart';
 
 import 'expanded_example.dart';
+import 'fields.dart';
 import 'iput_ui.dart';
 import 'main_ui_3.dart';
 
@@ -22,7 +24,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: InputUi(), // first screen
+      home: const FieldsScreen(), // first screen
       theme: ThemeData(
           // colors
           primaryColor: Colors.black,
