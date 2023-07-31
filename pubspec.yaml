@@ -30,7 +30,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_zoom_drawer:
+  flutter_zoom_drawer:  3.0.4+1
+  adaptive_action_sheet: 2.0.2 #upgrade
 #  custom_searchable_dropdown: 2.1.1
 #  custom_searchable_dropdown: ^2.1.1
   # The following adds the Cupertino Icons font to your application.

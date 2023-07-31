@@ -1,14 +1,7 @@
-import 'package:fip5/main_ui_2.dart';
-import 'package:fip5/task.dart';
-import 'package:fip5/task_ui.dart';
-import 'package:fip5/textfields_example.dart';
+import 'package:fip5/sliver_app_bar.dart';
 import 'package:flutter/material.dart';
-
-import 'expanded_example.dart';
-import 'fields.dart';
-import 'iput_ui.dart';
-import 'main_ui_3.dart';
-
+import 'builders/griv_view_builder.dart';
+import 'builders/list_view_builder.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -24,7 +17,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const FieldsScreen(), // first screen
+      home: const SliverAppBarExample(), // first screen
       theme: ThemeData(
           // colors
           primaryColor: Colors.black,
