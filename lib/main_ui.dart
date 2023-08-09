@@ -1,9 +1,18 @@
-import 'package:fip5/sliver_app_bar.dart';
+import 'package:fip5/l10n/app_language.dart';
+import 'package:fip5/tabs/tabs_screen.dart';
 import 'package:flutter/material.dart';
-import 'builders/griv_view_builder.dart';
-import 'builders/list_view_builder.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:scoped_model/scoped_model.dart';
+import 'generated/l10n.dart';
+import 'navigations/screen_a.dart';
+import 'navigations/screen_b.dart';
+import 'navigations/screen_c.dart';
+
 void main() {
-  runApp(const MyApp());
+  runApp(ScopedModel<AppLanguage>(
+    child: const MyApp(),
+    model: AppLanguage(),
+  ));
 }
 
 class MyApp extends StatefulWidget {
@@ -16,20 +25,39 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: const SliverAppBarExample(), // first screen
-      theme: ThemeData(
-          // colors
-          primaryColor: Colors.black,
-          accentColor: Colors.black,
-          backgroundColor: Colors.white,
-          scaffoldBackgroundColor: Colors.white,
-          buttonColor: Colors.red,
-          // ctrl + s  hotReload
-          shadowColor: Colors.red),
-      title: "Fip5",
-      debugShowCheckedModeBanner: false,
-    ); // widget class MaterialApp   Text()   container Container   MyFirstClass
+    return ScopedModelDescendant<AppLanguage>(builder: (context, child, model) {
+      print("My App Called");
+      return MaterialApp(
+        home: TabScreen(),
+        locale: model.appLocale,
+        supportedLocales: S.delegate.supportedLocales,
+        localizationsDelegates: [
+          S.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        // en   ar
+        // first screen
+        theme: ThemeData(
+            // colors
+            primaryColor: Colors.black,
+            accentColor: Colors.black,
+            backgroundColor: Colors.white,
+            scaffoldBackgroundColor: Colors.white,
+            buttonColor: Colors.red,
+            // ctrl + s  hotReload
+            shadowColor: Colors.red),
+        routes: {
+          "/screenA": (c) => ScreenA(),
+          "/screenB": (c) => ScreenB(),
+          "/screenC": (c) => ScreenC(),
+        },
+        // initialRoute: "/screenA",
+        title: "Fip5",
+        debugShowCheckedModeBanner: false,
+      ); // wid
+    });
   }
 }
 
