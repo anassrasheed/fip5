@@ -1,12 +1,15 @@
-import 'package:fip5/l10n/app_language.dart';
-import 'package:fip5/tabs/tabs_screen.dart';
+import 'package:fip5/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'generated/l10n.dart';
-import 'navigations/screen_a.dart';
-import 'navigations/screen_b.dart';
-import 'navigations/screen_c.dart';
+import 'package:sizer/sizer.dart';
+
+import 'l10n/app_language.dart';
+import 'old/builders/list_view_builder.dart';
+import 'old/generated/l10n.dart';
+import 'old/navigations/screen_a.dart';
+import 'old/navigations/screen_b.dart';
+import 'old/navigations/screen_c.dart';
 
 void main() {
   runApp(ScopedModel<AppLanguage>(
@@ -26,37 +29,39 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return ScopedModelDescendant<AppLanguage>(builder: (context, child, model) {
-      print("My App Called");
-      return MaterialApp(
-        home: TabScreen(),
-        locale: model.appLocale,
-        supportedLocales: S.delegate.supportedLocales,
-        localizationsDelegates: [
-          S.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-        ],
-        // en   ar
-        // first screen
-        theme: ThemeData(
-            // colors
-            primaryColor: Colors.black,
-            accentColor: Colors.black,
-            backgroundColor: Colors.white,
-            scaffoldBackgroundColor: Colors.white,
-            buttonColor: Colors.red,
-            // ctrl + s  hotReload
-            shadowColor: Colors.red),
-        routes: {
-          "/screenA": (c) => ScreenA(),
-          "/screenB": (c) => ScreenB(),
-          "/screenC": (c) => ScreenC(),
-        },
-        // initialRoute: "/screenA",
-        title: "Fip5",
-        debugShowCheckedModeBanner: false,
-      ); // wid
+      return Sizer(builder: (context, orientation, deviceType) {
+        return MaterialApp(
+          home: SplashScreen(),
+          locale: model.appLocale,
+          supportedLocales: S.delegate.supportedLocales,
+          localizationsDelegates: const [
+            S.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
+          theme: ThemeData(
+              // colors
+              primaryColor: Colors.black,
+              accentColor: Colors.black,
+              backgroundColor: Colors.white,
+              scaffoldBackgroundColor: Colors.white,
+              buttonColor: Colors.red,
+              fontFamily: "trojan",
+              // textTheme: GoogleFonts.abelTextTheme(Theme.of(context).textTheme),
+              // ctrl + s  hotReload
+              shadowColor: Colors.red),
+          routes: {
+            "/screenA": (c) => ScreenA(),
+            "/screenB": (c) => ScreenB(),
+            "/screenC": (c) => const ScreenC(),
+          },
+          // initialRoute: "/screenA",
+          title: "Fip5",
+          debugShowCheckedModeBanner: false,
+        );
+      });
+      // wid
     });
   }
 }
@@ -68,12 +73,12 @@ class FirstScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Hello Fip5"),
+        title: const Text("Hello Fip5"),
         shadowColor: Colors.red,
         elevation: 1,
         centerTitle: true,
-        leading: Text("asjdhaskjdhkjsdfdsfdsfdsfashdkj"),
-        actions: [
+        leading: const Text("asjdhaskjdhkjsdfdsfdsfdsfashdkj"),
+        actions: const [
           Icon(Icons.add),
           Icon(Icons.remove),
           Text("Anas"),
@@ -81,7 +86,8 @@ class FirstScreen extends StatelessWidget {
         ],
         backgroundColor: Colors.red,
         leadingWidth: 150,
-        iconTheme: IconThemeData(color: Colors.green, size: 20, weight: 20),
+        iconTheme:
+            const IconThemeData(color: Colors.green, size: 20, weight: 20),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
         // leadingWidth: ,
       ),
@@ -91,32 +97,14 @@ class FirstScreen extends StatelessWidget {
           child: Container(
             color: Colors.yellow,
             child: Row(
-              children: [
+              children: const [
                 Text("Anas"),
                 Text("Hussain"),
               ],
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.start,
             ),
-          )
-          // Column(
-          //   children: [
-          //     Text("Anas"),
-          //     Text("rasheed"),
-          //     Text("StepbyStrp"),
-          //     Text("StepbyStrp"),
-          //     Text("StepbyStrp"),
-          //     Text("StepbyStrp"),
-          //     Icon(Icons.add),
-          //     Text("StepbyStrp"),
-          //     Text("StepbyStrp"),
-          //     Text("StepbyStrp"),
-          //   ],
-          //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-          //   crossAxisAlignment: CrossAxisAlignment.center,
-          //   mainAxisSize: MainAxisSize.max,// bottomsheet
-          // ),
-          ), // column row
+          )), // column row
     );
   }
 }
@@ -134,3 +122,5 @@ class _SecondScreenState extends State<SecondScreen> {
     return const Scaffold();
   }
 }
+// listView with Future
+// shimmer

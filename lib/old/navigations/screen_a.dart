@@ -1,4 +1,4 @@
-import 'package:fip5/navigations/screen_b.dart';
+import 'package:fip5/old/navigations/screen_b.dart';
 import 'package:flutter/material.dart';
 
 class ScreenA extends StatefulWidget {

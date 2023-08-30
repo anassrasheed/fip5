@@ -1,9 +1,6 @@
-import 'package:fip5/tabs/tabs_screen.dart';
+import 'package:fip5/l10n/app_language.dart';
 import 'package:flutter/material.dart';
-
 import '../generated/l10n.dart';
-import '../l10n/app_language.dart';
-import '../utils/ui/custom_widget.dart';
 
 class AboutUsTab extends StatefulWidget {
   const AboutUsTab({Key? key}) : super(key: key);

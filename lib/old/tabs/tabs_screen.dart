@@ -1,7 +1,8 @@
-import 'package:fip5/generated/l10n.dart';
-import 'package:fip5/tabs/about_us_tab.dart';
+import 'package:fip5/old/generated/l10n.dart';
+import 'package:fip5/old/tabs/about_us_tab.dart';
 import 'package:flutter/material.dart';
 
+import '../navigations/screen_b.dart';
 import 'contact_us_tab.dart';
 
 class TabScreen extends StatefulWidget {
@@ -29,7 +30,15 @@ class _TabScreenState extends State<TabScreen> with TickerProviderStateMixin {
           bottom: TabBar(
             tabs: [
               Tab(
-                child: Text(S.of(context).home), // 0
+                child: Text(
+                  S.of(context).home,
+                  style: TextStyle(fontFamily: "ang", fontSize: 30),
+                  // style: GoogleFonts.openSans(
+                  //   fontSize: 30,
+                  //   color: Colors.green,
+                  //   fontWeight: FontWeight.w500
+                  // ),
+                ), // 0
               ),
               Tab(
                 child: Text(S.of(context).aboutUs), // 1
@@ -70,10 +79,25 @@ class _TabScreenState extends State<TabScreen> with TickerProviderStateMixin {
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
       color: color,
-      child: Center(child: Text(title)),
+      child: Center(
+          child: InkWell(
+        child: Text(title),
+        onTap: () {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => ScreenB()));
+        },
+      )),
     );
   }
 }
+
 // radio buttons Done
 // checkbox Done
-// localization   translation     Translation   GetX  mobx   Internationalozation
+// localization   translation     Translation   GetX  mobx   Internationalozation done
+// bottom navigation bar  Persistant Done
+// Fonts Done
+// shimmer
+// futures   async streams
+// mockup
+// functionalities    image picker   geolocator geocoder   open camera   images types
+// note Post Api

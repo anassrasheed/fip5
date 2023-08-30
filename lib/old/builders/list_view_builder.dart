@@ -1,46 +1,81 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
-class ListViewBuilderExample extends StatefulWidget {
+class ListViewBuilderExample extends StatelessWidget {
   // shift f6    fn + shift f6
-  const ListViewBuilderExample({Key? key}) : super(key: key);
+  ListViewBuilderExample({Key? key}) : super(key: key);
 
-  @override
-  State<ListViewBuilderExample> createState() => _ListViewBuilderExampleState();
-}
-
-class _ListViewBuilderExampleState extends State<ListViewBuilderExample> {
-  List<PlaceModel> _places = [];
-
-  @override
-  void initState() {
-    _fillPlaces();
-    super.initState();
-  }
-
-  // dui  dynamic user interface
   @override
   Widget build(BuildContext context) {
+    print("Build called");
     return Scaffold(
       appBar: AppBar(
-        title: Text("ListView Builder Example"),
+        title: const Text("ListView Builder Example"),
         centerTitle: true,
       ),
-      body: Center(
-          child: ListView.builder(
-        itemBuilder: (context, index) {
-          return _buildCard(
-              _places[index]); // 0 1 2 3 4 ..... _places.length-1 9
-        },
-        itemCount: _places.length, // 10
-        padding: EdgeInsets.zero,
-        shrinkWrap: true,
-      )),
+      body: _newView(),
     );
   }
 
-  SizedBox _buildCard(PlaceModel model) {
+  Widget _newView() {
+    return Center(
+      child: FutureBuilder<List<PlaceModel>>(
+        builder: (context, snapShot) {
+          if (snapShot.hasError) {
+            return const Text("Error please contact us on 079xxxxxxx");
+          }
+          if (!snapShot.hasData) {
+            return Center(
+              child: ListView.builder(
+                itemBuilder: (context, index) {
+                  return _buildShimmer(
+                      context); // 0 1 2 3 4 ..... _places.length-1 9
+                },
+                itemCount: 10, // 10
+                padding: EdgeInsets.zero,
+                shrinkWrap: true,
+              ),
+            );
+          }
+          List<PlaceModel> places = snapShot.data!;
+          return ListView.builder(
+            itemBuilder: (context, index) {
+              return _buildCard(
+                  places[index], context); // 0 1 2 3 4 ..... _places.length-1 9
+            },
+            itemCount: places.length, // 10
+            padding: EdgeInsets.zero,
+            shrinkWrap: true,
+          );
+        },
+        future: _fillPlaces(),
+      ),
+    );
+  }
+
+  //
+  // Center _oldView() {
+  //   return Center(
+  //       child: _places.isEmpty
+  //           ? CircularProgressIndicator(
+  //               color: Colors.red,
+  //               strokeWidth: 3,
+  //             )
+  //           : ListView.builder(
+  //               itemBuilder: (context, index) {
+  //                 return _buildCard(
+  //                     _places[index]); // 0 1 2 3 4 ..... _places.length-1 9
+  //               },
+  //               itemCount: _places.length, // 10
+  //               padding: EdgeInsets.zero,
+  //               shrinkWrap: true,
+  //             ));
+  // }
+  //
+  SizedBox _buildCard(PlaceModel model, BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.9,
       height: 150,
@@ -57,7 +92,7 @@ class _ListViewBuilderExampleState extends State<ListViewBuilderExample> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(model.name),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 SingleChildScrollView(
@@ -65,7 +100,7 @@ class _ListViewBuilderExampleState extends State<ListViewBuilderExample> {
                     model.desc,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 Text(model.location), // model.location
@@ -77,8 +112,66 @@ class _ListViewBuilderExampleState extends State<ListViewBuilderExample> {
     );
   }
 
-  void _fillPlaces() {
-    _places = [
+  Widget _buildShimmer(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.all(4),
+      width: MediaQuery.of(context).size.width,
+      height: 100,
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(12),color: Colors.grey.shade600,),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Shimmer.fromColors(
+              baseColor: Colors.grey,
+              highlightColor: Colors.grey.shade300,
+              child: Container(
+                height: 80,
+                width: 80,
+                color: Colors.grey,
+              )),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Shimmer.fromColors(
+                  baseColor: Colors.grey,
+                  highlightColor: Colors.grey.shade300,
+                  child: Container(
+                    height: 20,
+                    width: MediaQuery.of(context).size.width * 0.70,
+                    color: Colors.grey,
+                    margin: const EdgeInsets.all(4),
+                  )),
+              Shimmer.fromColors(
+                  baseColor: Colors.grey,
+                  highlightColor: Colors.grey.shade300,
+                  child: Container(
+                    height: 20,
+                    width: MediaQuery.of(context).size.width * 0.70,
+                    color: Colors.grey,
+                    margin: const EdgeInsets.all(4),
+                  )),
+              Shimmer.fromColors(
+                  baseColor: Colors.grey,
+                  highlightColor: Colors.grey.shade300,
+                  child: Container(
+                    height: 20,
+                    width: MediaQuery.of(context).size.width * 0.70,
+                    color: Colors.grey,
+                    margin: const EdgeInsets.all(4),
+                  )),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  // stream builder
+  // shimmer
+  Future<List<PlaceModel>> _fillPlaces() async {
+    List<PlaceModel> places = [
       PlaceModel(
           name: "Anas",
           image:
@@ -149,9 +242,10 @@ class _ListViewBuilderExampleState extends State<ListViewBuilderExample> {
           desc:
               "London is the capital city of the United Kingdom. It is the U.K.'s largest metropolis and its economic"),
     ];
+    // delay 3 seconds
+    await Future.delayed(const Duration(seconds: 10)); // simulate database
+    return places;
   }
-
-// example cities around the world
 }
 
 class PlaceModel {

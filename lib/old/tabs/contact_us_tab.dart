@@ -1,4 +1,3 @@
-import 'package:fip5/tabs/tabs_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../generated/l10n.dart';

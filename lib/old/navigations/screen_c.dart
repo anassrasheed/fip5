@@ -1,4 +1,3 @@
-import 'package:fip5/navigations/screen_a.dart';
 import 'package:flutter/material.dart';
 
 class ScreenC extends StatelessWidget {
