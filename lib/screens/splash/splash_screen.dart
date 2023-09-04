@@ -1,9 +1,13 @@
 import 'dart:async';
 
+import 'package:fip5/config/cache_keys.dart';
 import 'package:fip5/screens/intro/intro_screen.dart';
+import 'package:fip5/screens/login/login_screen.dart';
 import 'package:fip5/utils/helpers/fip5_navigator.dart';
+import 'package:fip5/utils/helpers/shared_prefs_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../utils/ui/fip5_text.dart';
@@ -54,8 +58,11 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void _navigate() {
-    Timer(const Duration(seconds: 5), () {
-      Fip5Navigator.of(context).pushReplacement(const IntroScreen());
+    Timer(const Duration(seconds: 5), () async {
+      bool isIntroEnteredBefore = SharedPreferenceHelper()
+          .read(key: CacheKeys.introKey, type: SaveType.boolType) as bool;
+      FIP5Navigator.of(context).pushReplacement(
+          isIntroEnteredBefore ? const LoginScreen() : const IntroScreen());
     });
   }
 }

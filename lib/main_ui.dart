@@ -1,3 +1,4 @@
+import 'package:fip5/config/app_colors.dart';
 import 'package:fip5/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -31,7 +32,7 @@ class _MyAppState extends State<MyApp> {
     return ScopedModelDescendant<AppLanguage>(builder: (context, child, model) {
       return Sizer(builder: (context, orientation, deviceType) {
         return MaterialApp(
-          home: SplashScreen(),
+          home: const SplashScreen(),
           locale: model.appLocale,
           supportedLocales: S.delegate.supportedLocales,
           localizationsDelegates: const [
@@ -42,7 +43,7 @@ class _MyAppState extends State<MyApp> {
           ],
           theme: ThemeData(
               // colors
-              primaryColor: Colors.black,
+              primaryColor: AppColors.primaryColor,
               accentColor: Colors.black,
               backgroundColor: Colors.white,
               scaffoldBackgroundColor: Colors.white,

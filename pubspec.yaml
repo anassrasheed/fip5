@@ -44,6 +44,8 @@ dependencies:
   persistent_bottom_nav_bar:
   shimmer:
   sizer:
+  smooth_page_indicator:
+  shared_preferences:
   lottie:
 dev_dependencies:
   flutter_test:

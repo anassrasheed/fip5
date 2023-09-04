@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class Fip5Navigator<T> {
+class FIP5Navigator<T> {
   final BuildContext context;
   bool rootNav = false;
 
-  Fip5Navigator.of(
+  FIP5Navigator.of(
     this.context, {
     bool rootNavigator = false,
   }) {
@@ -48,9 +48,6 @@ class Fip5Navigator<T> {
     );
   }
 
-  // Future<T?> pop([result]) {
-  //   return Navigator.pop(_context,result);
-  // }
   void pop([result]) {
     Navigator.of(context, rootNavigator: rootNav).pop(result);
   }
