@@ -44,9 +44,11 @@ dependencies:
   persistent_bottom_nav_bar:
   shimmer:
   sizer:
-  smooth_page_indicator:
+  smooth_page_indicator: ^1.1.0
   shared_preferences:
   lottie:
+  font_awesome_flutter: ^10.5.0
+  introduction_screen: ^3.1.11
 dev_dependencies:
   flutter_test:
     sdk: flutter

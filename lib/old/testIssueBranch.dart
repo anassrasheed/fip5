@@ -1,3 +1,0 @@
-class Mamoun{
-  String? name;
-}

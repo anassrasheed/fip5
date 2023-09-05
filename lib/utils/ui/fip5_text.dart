@@ -1,28 +1,25 @@
+// ignore_for_file: non_constant_identifier_names, prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-class Fip5Text extends StatelessWidget {
-  final String title;
-  final Color textColor;
-  final double? fontSize;
-  final FontWeight? fontWeight;
-
-  const Fip5Text(
-      {Key? key,
-      required this.title,
-      this.textColor = Colors.brown,
-      this.fontWeight,
-      this.fontSize})
-      : super(key: key);
+class FipText extends StatelessWidget {
+     final String title ;
+     final TextColor;
+     final double? fontSize;
+     // the red is defult
+    
+   const FipText({super.key, required this.title, this.TextColor,  this.fontSize, required FontWeight fontWeight, required MaterialColor textColor});
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      title,
-      style: TextStyle(
-          color: textColor,
-          fontSize: fontSize ?? 11.sp,
-          fontWeight: fontWeight ?? FontWeight.normal),
-    );
+              title,
+              style: TextStyle(
+                fontSize: fontSize ?? 11.sp,
+                color: TextColor,
+                fontWeight: FontWeight.bold,
+              ),
+            );
   }
 }

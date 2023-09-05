@@ -1,4 +1,5 @@
 import 'package:fip5/config/app_colors.dart';
+import 'package:fip5/generated/l10n.dart';
 import 'package:fip5/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -6,11 +7,7 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:sizer/sizer.dart';
 
 import 'l10n/app_language.dart';
-import 'old/builders/list_view_builder.dart';
-import 'old/generated/l10n.dart';
-import 'old/navigations/screen_a.dart';
-import 'old/navigations/screen_b.dart';
-import 'old/navigations/screen_c.dart';
+
 
 void main() {
   runApp(ScopedModel<AppLanguage>(
@@ -32,7 +29,7 @@ class _MyAppState extends State<MyApp> {
     return ScopedModelDescendant<AppLanguage>(builder: (context, child, model) {
       return Sizer(builder: (context, orientation, deviceType) {
         return MaterialApp(
-          home: const SplashScreen(),
+          home: const SplashView(),
           locale: model.appLocale,
           supportedLocales: S.delegate.supportedLocales,
           localizationsDelegates: const [
@@ -44,18 +41,17 @@ class _MyAppState extends State<MyApp> {
           theme: ThemeData(
               // colors
               primaryColor: AppColors.primaryColor,
-              accentColor: Colors.black,
+              hintColor: Colors.black,
               backgroundColor: Colors.white,
               scaffoldBackgroundColor: Colors.white,
-              buttonColor: Colors.red,
               fontFamily: "trojan",
               // textTheme: GoogleFonts.abelTextTheme(Theme.of(context).textTheme),
               // ctrl + s  hotReload
               shadowColor: Colors.red),
           routes: {
-            "/screenA": (c) => ScreenA(),
-            "/screenB": (c) => ScreenB(),
-            "/screenC": (c) => const ScreenC(),
+            // "/screenA": (c) => ScreenA(),
+            // "/screenB": (c) => ScreenB(),
+            // "/screenC": (c) => const ScreenC(),
           },
           // initialRoute: "/screenA",
           title: "Fip5",

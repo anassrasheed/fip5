@@ -27,9 +27,9 @@ class CommonViews {
     return ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(backgroundColor: AppColors.buttonColor),
-        child: Fip5Text(
+        child: FipText(
           title: title,
-          textColor: Colors.white,
+           fontWeight: FontWeight.bold, textColor: Colors.grey,
         ));
   }
 }
@@ -50,9 +50,9 @@ mixin Fip5Views {
     return ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(backgroundColor: AppColors.buttonColor),
-        child: Fip5Text(
+        child: FipText(
           title: title,
-          textColor: Colors.white,
+          textColor: Colors.grey, fontWeight: FontWeight.bold,
         ));
   }
 }
