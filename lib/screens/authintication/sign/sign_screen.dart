@@ -1,8 +1,14 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:fip5/config/app_colors.dart';
+import 'package:fip5/resources/stringes_manager.dart';
 import 'package:fip5/screens/authintication/login/login_screen.dart';
 import 'package:fip5/screens/authintication/signup/signup_screen.dart';
+import 'package:fip5/utils/helpers/fip5_navigator.dart';
+import 'package:fip5/utils/ui/common_views.dart';
+import 'package:fip5/utils/ui/fip5_text.dart';
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 class SignScreen extends StatelessWidget {
   const SignScreen({super.key});
@@ -30,18 +36,14 @@ class SignScreen extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   ),
-                  child: Text('Fit'),
+                  child: Text(AppString.fit),
                 ),
-                SizedBox(width: 7),
-                Text(
-                  'Kit',
-                  style: TextStyle(
-                    fontSize: 36,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFFC12323),
-                    decoration: TextDecoration.underline,
-                  ),
-                ),
+                SizedBox(width: 7.w),
+                FipText(
+                  title: AppString.kit,
+                  fontWeight: FontWeight.bold,
+                  TextColor: AppColors.buttonColor,
+                )
               ],
             ),
           ),
@@ -49,7 +51,8 @@ class SignScreen extends StatelessWidget {
           Positioned(
             top: 100, // Adjust the position as needed
             left: 20, // Adjust the position as needed
-            child: Text(
+            child: 
+            Text(
               "Lorem Ipsum is simply dummy text of the printing and typesetting ",
               style: TextStyle(
                 fontWeight: FontWeight.w500,
@@ -58,33 +61,17 @@ class SignScreen extends StatelessWidget {
           ),
           // Sign Up Button
           Positioned(
-            bottom: 20, // Adjust the position as needed
-            left: 20, // Adjust the position as needed
-            right: 20, // Adjust the position as needed
-            child: ElevatedButton(
-              onPressed: () {
-                // Add your Sign Up logic here
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => SignupScreen(),
-                  ),
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                primary: Color(0xFFC12323),
-                minimumSize: Size(380, 54),
-              ),
-              child: Text(
-                'Sign Up',
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
-                  fontSize: 24,
-                ),
-              ),
-            ),
-          ),
+              bottom: 20, // Adjust the position as needed
+              left: 20, // Adjust the position as needed
+              right: 20, // Adjust the position as needed
+              child: CommonViews().createButton(
+                  title: AppString.signup,
+                  onPressed:() {
+                    FIP5Navigator.of(context)
+                            .pushAndRemoveUntil(SignupScreen());
+                  }
+          
+              ),),
           // Log In With Account Text Button
           Positioned(
             bottom: 60, // Adjust the position as needed
@@ -92,20 +79,19 @@ class SignScreen extends StatelessWidget {
             child: TextButton(
               onPressed: () {
                 // Add your Log In logic here
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => LoginScreen(),
-                  ),
-                );
+                   FIP5Navigator.of(context)
+                            .pushAndRemoveUntil(LoginScreen());
+                
               },
-              child: Text(
-                "Log In With Account",
-                style: TextStyle(
-                  fontSize: 16,
+              child:
+               FipText(
+                  title: AppString.loginWithAcount,
                   fontWeight: FontWeight.w400,
-                ),
-              ),
+                  TextColor: AppColors.textcolor,
+                  fontSize: 16,
+
+                )
+              
             ),
           ),
         ],

@@ -7,9 +7,10 @@ class FipText extends StatelessWidget {
      final String title ;
      final TextColor;
      final double? fontSize;
+     
      // the red is defult
     
-   const FipText({super.key, required this.title, this.TextColor,  this.fontSize, required FontWeight fontWeight, required MaterialColor textColor});
+   const FipText({super.key, required this.title, this.TextColor,  this.fontSize, required FontWeight fontWeight,   });
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +20,7 @@ class FipText extends StatelessWidget {
                 fontSize: fontSize ?? 11.sp,
                 color: TextColor,
                 fontWeight: FontWeight.bold,
+                decoration: TextDecoration.underline
               ),
             );
   }

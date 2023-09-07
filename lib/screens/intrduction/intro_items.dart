@@ -16,7 +16,7 @@ class IntroItem extends StatelessWidget {
          FipText
         (title: text!,
          fontWeight: FontWeight.normal, 
-         textColor: AppColors.disbaleIndicator),
+         TextColor: AppColors.disbaleIndicator),
       ],
     );
   }

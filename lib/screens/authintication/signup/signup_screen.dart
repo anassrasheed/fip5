@@ -1,10 +1,14 @@
-
-
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:fip5/config/app_colors.dart';
+import 'package:fip5/resources/stringes_manager.dart';
 import 'package:fip5/screens/authintication/login/login_screen.dart';
+import 'package:fip5/utils/ui/fip5_text.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:sizer/sizer.dart';
+
+import '../../../utils/helpers/fip5_navigator.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key});
@@ -16,16 +20,17 @@ class SignupScreen extends StatefulWidget {
 class _SignupScreenState extends State<SignupScreen> {
   bool isChecked = false;
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-  backgroundColor: Color(0xFFF8F8F8), // Use the 0x prefix to specify a hexadecimal color
-      appBar: AppBar(
-  backgroundColor: Color(0xFFF8F8F8), // Use the 0x prefix to specify a hexadecimal color
+      backgroundColor:
+          Color(0xFFF8F8F8), // Use the 0x prefix to specify a hexadecimal color
+           appBar: AppBar(
+        backgroundColor: Color(
+            0xFFF8F8F8), // Use the 0x prefix to specify a hexadecimal color
         elevation: 0,
       ),
-      
+
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -38,37 +43,33 @@ class _SignupScreenState extends State<SignupScreen> {
                 children: [
                   DefaultTextStyle(
                     style: TextStyle(
-                      fontSize: 36,
+                      fontSize: 36.sp,
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),
-                    child: Text('Fit'),
+                    child: Text(AppString.fit),
                   ),
-                  SizedBox(width: 7),
-                  Text(
-                    'Kit',
-                    style: TextStyle(
-                      fontSize: 36,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFFC12323),
-                      decoration: TextDecoration.underline,
-                    ),
-                  ),
+                  SizedBox(width: 7.w),
+                  FipText(
+                    title: AppString.kit,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 36.sp,
+                    TextColor: AppColors.buttonColor,
+                  )
                 ],
               ),
               SizedBox(
-                height: 40,
+                height: 40.h,
               ),
-              Text(
-                "Create Your Account",
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.grey,
-                ),
+              FipText(
+                title: AppString.creatYourAccount,
+                fontWeight: FontWeight.w500,
+                TextColor: AppColors.disbaleIndicator,
+                fontSize: 24.sp,
               ),
+
               SizedBox(
-                height: 35,
+                height: 35.h,
               ),
               TextFormField(
                 decoration: InputDecoration(
@@ -81,7 +82,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
               ),
               SizedBox(
-                height: 20,
+                height: 20.h,
               ),
               TextFormField(
                 decoration: InputDecoration(
@@ -94,7 +95,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
               ),
               SizedBox(
-                height: 20,
+                height: 20.h,
               ),
               TextFormField(
                 obscureText: true, // For password input
@@ -117,30 +118,30 @@ class _SignupScreenState extends State<SignupScreen> {
                       });
                     },
                   ),
-                  Text(
-                    'I Read and agree to ',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.grey,
-                    ),
-                  ),
+                    FipText(
+                title: AppString.IreadAndIagree,
+                fontWeight: FontWeight.w500,
+                TextColor: AppColors.disbaleIndicator,
+                fontSize: 18.sp,
+              ),
+
+                  
                   TextButton(
                     onPressed: () {
                       // Add your Terms & Conditions link here
                     },
-                    child: Text(
-                      'Terms & Conditions',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
+                    child:
+                     FipText(
+                title: AppString.tearmAndConditions,
+                fontWeight: FontWeight.w500,
+                TextColor: AppColors.disbaleIndicator,
+                fontSize: 18.sp,
+              ),
                   )
                 ],
               ),
               SizedBox(
-                height: 10,
+                height: 10.h,
               ),
               Spacer(),
               ElevatedButton(
@@ -151,27 +152,28 @@ class _SignupScreenState extends State<SignupScreen> {
                   primary: Color(0xFFC12323),
                   minimumSize: Size(380, 54),
                 ),
-                child: Text(
-                  'Sign Up',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                    fontSize: 24,
-                  ),
-                ),
+                child:
+                FipText(
+                title: AppString.signup,
+                fontWeight: FontWeight.w600,
+                TextColor: AppColors.textcolor,
+                fontSize: 24.sp,
+              ),
+                
               ),
               SizedBox(height: 10),
               Center(
-                child: Text(
-                  "OR",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
+                child:
+                FipText(
+                title: AppString.oR,
+                fontWeight: FontWeight.w500,
+                TextColor: AppColors.textcolor,
+                fontSize: 18.sp,
+              ),
+               
               ),
               SizedBox(
-                height: 10,
+                height: 10.h,
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -180,11 +182,11 @@ class _SignupScreenState extends State<SignupScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        width: 100,
-                        height: 46,
+                        width: 100.w,
+                        height: 46.h,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
-                          color: Color(0xff00a4f9),
+                          color:AppColors.twitter,
                         ),
                         child: IconButton(
                           icon: Icon(
@@ -198,16 +200,16 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                       SizedBox(width: 8),
                       Container(
-                        width: 100,
-                        height: 46,
+                        width: 100.w,
+                        height: 46.h,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
-                          color: Color(0xff00a4f9),
+                          color: AppColors.facebook
                         ),
                         child: IconButton(
                           icon: Icon(
                             FontAwesomeIcons.facebook,
-                            color: Colors.white,
+                            color: AppColors.textcolor,
                           ),
                           onPressed: () {
                             // Handle Facebook button press here
@@ -219,7 +221,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
               ),
               SizedBox(
-                height: 10,
+                height: 10.h,
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -227,38 +229,33 @@ class _SignupScreenState extends State<SignupScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        'Already have an account? ',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.grey,
-                        ),
-                      ),
+                      FipText(
+                title: AppString.Alreadyhaveanaccount,
+                fontWeight: FontWeight.w500,
+                TextColor: AppColors.textcolor,
+                fontSize: 18.sp,
+              ),
+
+                     
                       TextButton(
                         onPressed: () {
-                         // Navigate to the Login screen here
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => LoginScreen(),
-                            ),
-                          );
+                          // Navigate to the Login screen here
+                          FIP5Navigator.of(context)
+                            .pushAndRemoveUntil(LoginScreen());
                         },
-                        child: Text(
-                          ' Login',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                            color: Color(0xFFC12323),
-                          ),
-                        ),
+                        child:  FipText(
+                title: AppString.Alreadyhaveanaccount,
+                fontWeight: FontWeight.w500,
+                TextColor: AppColors.buttonColor,
+                fontSize: 18.sp,
+              ),
+                       
                       )
                     ],
                   ),
                 ),
               ),
-              SizedBox(height: 20), // Adjust the spacing at the bottom
+              SizedBox(height: 20.h), // Adjust the spacing at the bottom
             ],
           ),
         ),
@@ -266,4 +263,3 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 }
-

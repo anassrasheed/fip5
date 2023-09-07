@@ -40,7 +40,7 @@ class _SplashViewState extends State<SplashView> {
             ),
             SizedBox(height: 20.h), // Use .sp for font size scaling
              FipText(
-              title: AppString.fit+AppString.kit, fontSize: 20.sp, fontWeight: FontWeight.bold, textColor: Colors.grey,
+              title: AppString.fit+AppString.kit, fontSize: 20.sp, fontWeight: FontWeight.bold, TextColor: Colors.grey,
              ),
           ],
         ),

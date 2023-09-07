@@ -29,7 +29,8 @@ class CommonViews {
         style: ElevatedButton.styleFrom(backgroundColor: AppColors.buttonColor),
         child: FipText(
           title: title,
-           fontWeight: FontWeight.bold, textColor: Colors.grey,
+          fontSize: 24,
+           fontWeight: FontWeight.bold, TextColor: Colors.grey,
         ));
   }
 }
@@ -45,14 +46,14 @@ mixin Fip5Views {
         centerTitle: true);
   }
 
-  Widget createButton(
-      {required String title, required VoidCallback onPressed}) {
-    return ElevatedButton(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(backgroundColor: AppColors.buttonColor),
-        child: FipText(
-          title: title,
-          textColor: Colors.grey, fontWeight: FontWeight.bold,
-        ));
-  }
+  // Widget createButton(
+  //     {required String title, required VoidCallback onPressed}) {
+  //   return ElevatedButton(
+  //       onPressed: onPressed,
+  //       style: ElevatedButton.styleFrom(backgroundColor: AppColors.buttonColor),
+  //       child: FipText(
+  //         title: title,
+  //         TextColor: Colors.grey, fontWeight: FontWeight.bold,
+  //       ));
+  // }
 }

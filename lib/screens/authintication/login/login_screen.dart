@@ -1,9 +1,16 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:fip5/resources/stringes_manager.dart';
 import 'package:fip5/screens/authintication/signup/signup_screen.dart';
 import 'package:fip5/screens/gender/gender_screen.dart';
+import 'package:fip5/utils/helpers/fip5_navigator.dart';
+import 'package:fip5/utils/ui/common_views.dart';
+import 'package:fip5/utils/ui/fip5_text.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:sizer/sizer.dart';
+
+import '../../../config/app_colors.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key});
@@ -42,35 +49,33 @@ class _LoginScreenState extends State<LoginScreen> {
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),
-                    child: Text('Fit'),
+                    child: Text(AppString.fit),
                   ),
-                  SizedBox(width: 7),
-                  Text(
-                    'Kit',
-                    style: TextStyle(
-                      fontSize: 36,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFFC12323),
-                      decoration: TextDecoration.underline,
-                    ),
-                  ),
+                  SizedBox(width: 7.w),
+                  FipText(
+                    title: AppString.kit,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 36.sp,
+                    TextColor: AppColors.buttonColor,
+                  )
                 ],
               ),
               SizedBox(
-                height: 40,
+                height: 40.h,
               ),
-              Text("Welcome!",
-                  style: TextStyle(
-                    fontSize: 36,
-                    fontWeight: FontWeight.w500,
-                  )),
-              Text("Sign into Your Account",
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w500,
-                  )),
+              FipText(
+                title: AppString.Welcome,
+                fontWeight: FontWeight.w500,
+                fontSize: 36.sp,
+              ),
+              FipText(
+                title: AppString.kit,
+                fontWeight: FontWeight.w500,
+                fontSize: 24.sp,
+              ),
+
               SizedBox(
-                height: 35,
+                height: 35.h,
               ),
 
               TextFormField(
@@ -104,40 +109,28 @@ class _LoginScreenState extends State<LoginScreen> {
                   )),
 
               SizedBox(
-                height: 10,
+                height: 10.h,
               ),
               Spacer(),
-              ElevatedButton(
-                  onPressed: () {
-                    // Add your Sign Up logic here
-                    Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => GenderScreen(),
-                              ),
-                            );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    primary: Color(0xFFC12323),
-                    minimumSize: Size(380, 54),
-                  ),
-                  child: Text("Login",
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w600,
-                      ))),
-              SizedBox(height: 10),
+              CommonViews().createButton(
+                title: AppString.login,
+                onPressed: () {
+                  // Navigate to the Login screen here
+                  FIP5Navigator.of(context).pushAndRemoveUntil(GenderScreen());
+                },
+              ),
+
+              SizedBox(height: 10.h),
               Center(
-                child: Text(
-                  "OR",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                  ),
+                child: FipText(
+                  title: AppString.oR,
+                  fontWeight: FontWeight.w500,
+                  TextColor: AppColors.textcolor,
+                  fontSize: 18.sp,
                 ),
               ),
               SizedBox(
-                height: 10,
+                height: 10.h,
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -146,35 +139,34 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        width: 100,
-                        height: 46,
+                        width: 100.w,
+                        height: 46.h,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
-                          color: Color(0xff00a4f9),
+                          color: AppColors.twitter,
                         ),
                         child: IconButton(
                           icon: Icon(
                             FontAwesomeIcons.twitter,
-                            color: Colors.white,
+                            color: AppColors.textcolor,
                           ),
                           onPressed: () {
                             // Handle Twitter button press here
-                             
                           },
                         ),
                       ),
-                      SizedBox(width: 8),
+                      SizedBox(width: 8.w),
                       Container(
-                        width: 100,
-                        height: 46,
+                        width: 100.w,
+                        height: 46.h,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
-                          color: Color(0xff00a4f9),
+                          color: AppColors.facebook,
                         ),
                         child: IconButton(
                           icon: Icon(
                             FontAwesomeIcons.facebook,
-                            color: Colors.white,
+                            color: AppColors.textcolor,
                           ),
                           onPressed: () {
                             // Handle Facebook button press here
@@ -186,7 +178,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               SizedBox(
-                height: 10,
+                height: 10.h,
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -194,31 +186,34 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Don’t have an account? ",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                          )),
+                      FipText(
+                        title: AppString.Donthaveanaccount,
+                        fontWeight: FontWeight.w500,
+                        TextColor: AppColors.textcolor,
+                        fontSize: 18.sp,
+                      ),
                       TextButton(
-                          onPressed: () {
-                            // Navigate to the Login screen here
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => SignupScreen(),
-                              ),
-                            );
-                          },
-                          child: Text("Signup",
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500,
-                              )))
+                        onPressed: () {
+                          // Navigate to the Login screen here
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SignupScreen(),
+                            ),
+                          );
+                        },
+                        child: FipText(
+                          title: AppString.signup,
+                          fontWeight: FontWeight.w500,
+                          TextColor: AppColors.textcolor,
+                          fontSize: 18.sp,
+                        ),
+                      )
                     ],
                   ),
                 ),
               ),
-              SizedBox(height: 20), // Adjust the spacing at the bottom
+              SizedBox(height: 20.h), // Adjust the spacing at the bottom
             ],
           ),
         ),
