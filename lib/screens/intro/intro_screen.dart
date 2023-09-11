@@ -80,7 +80,7 @@ class _IntroScreenState extends State<IntroScreen> with Fip5Views {
                       onPressed: () {
                         _saveData();
                         FIP5Navigator.of(context)
-                            .pushAndRemoveUntil(LoginScreen());
+                            .pushAndRemoveUntil(LoginPage());
                       })
                   : createButton(
                       title: "Next",

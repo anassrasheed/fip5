@@ -6,4 +6,5 @@ class AppColors {
   static const buttonColor = Color(0xffde4747);
   static const activeIndicator = Colors.red;
   static Color disbaleIndicator = Colors.grey.shade300;
+  static const blackTextColor = Colors.black;
 }

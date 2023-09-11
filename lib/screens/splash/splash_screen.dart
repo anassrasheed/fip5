@@ -62,7 +62,7 @@ class _SplashScreenState extends State<SplashScreen> {
       bool isIntroEnteredBefore = SharedPreferenceHelper()
           .read(key: CacheKeys.introKey, type: SaveType.boolType) as bool;
       FIP5Navigator.of(context).pushReplacement(
-          isIntroEnteredBefore ? const LoginScreen() : const IntroScreen());
+          isIntroEnteredBefore ? LoginPage() : const IntroScreen());
     });
   }
 }

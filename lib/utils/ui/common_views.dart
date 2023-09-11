@@ -32,6 +32,13 @@ class CommonViews {
           textColor: Colors.white,
         ));
   }
+
+  Widget customTextField({required bool abscureText, required String labelText}){
+    return  TextFormField(
+      obscureText: abscureText,
+      decoration:  InputDecoration(labelText: labelText),
+    );
+  }
 }
 
 mixin Fip5Views {
