@@ -1,4 +1,3 @@
-
 import 'dart:async';
 
 import 'package:fip5/config/cache_keys.dart';
@@ -35,25 +34,30 @@ class _SplashViewState extends State<SplashView> {
           children: <Widget>[
             Lottie.asset(
               'assets/olympic-athlete.json',
-              width: 200.w, // Use .w for width scaling
-              height: 200.h, // Use .h for height scaling
+              width: 100.w, // Use .w for width scaling
+              height: 50.h, // Use .h for height scaling
             ),
-            SizedBox(height: 20.h), // Use .sp for font size scaling
-             FipText(
-              title: AppString.fit+AppString.kit, fontSize: 20.sp, fontWeight: FontWeight.bold, TextColor: Colors.grey,
-             ),
+            SizedBox(height: 5.h), // Use .sp for font size scaling
+            FipText(
+              title: AppString.fit + AppString.kit,
+              fontSize: 20.sp,
+              fontWeight: FontWeight.bold,
+              TextColor: Colors.grey,
+            ),
           ],
         ),
       ),
     );
   }
 
- void _navigate() {
+  void _navigate() {
     Timer(const Duration(seconds: 5), () async {
-       bool? isIntroEnteredBefore =await SharedPreferenceHelper()
+      bool? isIntroEnteredBefore = await SharedPreferenceHelper()
           .read(key: CacheKeys.introKey, type: SaveType.boolType) as bool?;
       FIP5Navigator.of(context).pushReplacement(
-          isIntroEnteredBefore  != null && isIntroEnteredBefore ? const LoginScreen() : const IntroScreen());
+          isIntroEnteredBefore != null && isIntroEnteredBefore
+              ? const LoginScreen()
+              : const IntroScreen());
     });
   }
 }

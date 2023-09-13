@@ -67,23 +67,23 @@ class _LoginScreenState extends State<LoginScreen> {
                     )
                   ],
                 ),
-               
+
                 FipText(
                   title: AppString.Welcome,
                   fontWeight: FontWeight.w500,
                   fontSize: 36.sp,
                 ),
-                
+
                 SizedBox(
                   height: 20.h,
                 ),
-                 CommonViews().textFormField(
+                CommonViews().textFormField(
                     Controller: _emailcontroller,
                     FocusNode: _emailfocusnode,
                     Hinttext: AppString.EmailId,
                     keyboardtype: TextInputType.emailAddress,
                     suffixicon: Icon(Icons.email)),
-                
+
                 // TextFormField(
                 //   decoration: InputDecoration(
                 //     hintText: 'Email Id*',
@@ -126,36 +126,35 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                 ),
-                
+                SizedBox(
+                  height: 10,
+                ),
                 Text("Forgot Password?",
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w500,
                     )),
-                
                 SizedBox(
-                  height: 10.h,
+                  height: 5.h,
                 ),
-               
                 CommonViews().createButton(
                   title: AppString.login,
                   onPressed: () {
                     // Navigate to the Login screen here
-                    FIP5Navigator.of(context).pushAndRemoveUntil(GenderScreen());
+                    FIP5Navigator.of(context)
+                        .pushAndRemoveUntil(GenderScreen());
                   },
                 ),
-                
-                SizedBox(height: 10.h),
+                SizedBox(
+                  height: 10,
+                ),
                 Center(
                   child: FipText(
                     title: AppString.oR,
                     fontWeight: FontWeight.w500,
-                    TextColor: AppColors.textcolor,
+                    TextColor: Colors.red,
                     fontSize: 18.sp,
                   ),
-                ),
-                SizedBox(
-                  height: 10.h,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -164,7 +163,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
-                          width: 6.w,
+                          width: 15.w,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
                             color: AppColors.twitter,
@@ -181,7 +180,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         SizedBox(width: 8.w),
                         Container(
-                          width: 6.w,
+                          width: 15.w,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
                             color: AppColors.facebook,
@@ -200,9 +199,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 10.h,
-                ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Center(
@@ -212,8 +208,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         FipText(
                           title: AppString.Donthaveanaccount,
                           fontWeight: FontWeight.w500,
-                          TextColor: AppColors.textcolor,
-                          fontSize: 18.sp,
+                          TextColor: Colors.red,
+                          fontSize: 14.sp,
                         ),
                         TextButton(
                           onPressed: () {
@@ -228,15 +224,14 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: FipText(
                             title: AppString.signup,
                             fontWeight: FontWeight.w500,
-                            TextColor: AppColors.textcolor,
-                            fontSize: 18.sp,
+                            TextColor: Colors.blue,
+                            fontSize: 14.sp,
                           ),
                         )
                       ],
                     ),
                   ),
                 ),
-                SizedBox(height: 20.h), // Adjust the spacing at the bottom
               ],
             ),
           ),

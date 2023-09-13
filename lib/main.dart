@@ -48,7 +48,8 @@ class _MyAppState extends State<MyApp> {
               fontFamily: "trojan",
               // textTheme: GoogleFonts.abelTextTheme(Theme.of(context).textTheme),
               // ctrl + s  hotReload
-              shadowColor: Colors.red),
+              shadowColor: Colors.red
+          ),
           routes: const {
             // "/screenA": (c) => ScreenA(),
             // "/screenB": (c) => ScreenB(),
@@ -57,7 +58,7 @@ class _MyAppState extends State<MyApp> {
           // initialRoute: "/screenA",
           title: "Fip5",
           debugShowCheckedModeBanner: false,
-          debugShowMaterialGrid: true, // Enable debugging overlays
+          // debugShowMaterialGrid: false, // Enable debugging overlays
 
         );
       });

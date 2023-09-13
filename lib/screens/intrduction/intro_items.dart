@@ -6,6 +6,7 @@ import 'package:sizer/sizer.dart';
 class IntroItem extends StatelessWidget {
   final String image;
   final String? text;
+
   const IntroItem({super.key, required this.image, required this.text});
 
   @override
@@ -13,14 +14,17 @@ class IntroItem extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Image.asset(image),
-        SizedBox(height: 20.h,),
-         Center(
-           child: FipText
-                 (title: text!,
-           fontWeight: FontWeight.normal, 
-           TextColor: AppColors.Black),
-         ),
+        Image.asset(
+          image,
+          height: 30.h,
+        ),
+        const SizedBox(
+          height: 30,
+        ),
+        FipText(
+            title: text!,
+            fontWeight: FontWeight.normal,
+            TextColor: AppColors.Black),
       ],
     );
   }
