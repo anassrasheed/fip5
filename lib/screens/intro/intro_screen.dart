@@ -19,7 +19,7 @@ class IntroScreen extends StatefulWidget {
   State<IntroScreen> createState() => _IntroScreenState();
 }
 
-class _IntroScreenState extends State<IntroScreen> with Fip5Views {
+class _IntroScreenState extends State<IntroScreen> {
   final List<Widget> _pages = [];
   PageController controller = PageController();
   int _pageIndex = 0;
@@ -82,7 +82,7 @@ class _IntroScreenState extends State<IntroScreen> with Fip5Views {
                         FIP5Navigator.of(context)
                             .pushAndRemoveUntil(LoginScreen());
                       })
-                  : createButton(
+                  : CommonViews().createButton(
                       title: "Next",
                       onPressed: () {
                         controller.animateToPage(_pageIndex + 1,

@@ -72,29 +72,24 @@ class SharedPreferenceHelper {
     switch (type) {
       case SaveType.boolType:
         {
-          prefs.getBool(key);
+          return prefs.getBool(key);
         }
-        break;
       case SaveType.stringType:
         {
-          prefs.getString(key);
+          return prefs.getString(key);
         }
-        break;
       case SaveType.intType:
         {
-          prefs.getInt(key);
+          return prefs.getInt(key);
         }
-        break;
       case SaveType.doubleType:
         {
-          prefs.getDouble(key);
+          return prefs.getDouble(key);
         }
-        break;
       case SaveType.stringListType:
         {
-          prefs.getStringList(key);
+          return prefs.getStringList(key);
         }
-        break;
     }
   }
 }

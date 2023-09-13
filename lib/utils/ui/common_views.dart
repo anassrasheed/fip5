@@ -18,7 +18,7 @@ class CommonViews {
         elevation: 4,
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(bottom: Radius.circular(25))),
-        title: Text(title, style: TextStyle(color: Colors.black)),
+        title: Text(title, style: const TextStyle(color: Colors.black)),
         centerTitle: true);
   }
 
@@ -32,27 +32,83 @@ class CommonViews {
           textColor: Colors.white,
         ));
   }
-}
 
-mixin Fip5Views {
-  AppBar getAppBar({required String title, Color? color}) {
-    return AppBar(
-        backgroundColor: color ?? Colors.white,
-        elevation: 4,
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(bottom: Radius.circular(25))),
-        title: Text(title, style: TextStyle(color: Colors.black)),
-        centerTitle: true);
+  Widget createTextFormField(
+      {required TextEditingController controller,
+      required FocusNode focusNode,
+      required String label,
+      TextInputType keyboardType = TextInputType.text,
+      TextInputAction inputAction = TextInputAction.done,
+      ValueChanged<String>? onSubmitted,
+      String? prefixText,
+      String? hint,
+      Widget? suffixIcon,
+      bool isObscure = false}) {
+    return TextFormField(
+      controller: controller,
+      focusNode: focusNode,
+      keyboardType: keyboardType,
+      textInputAction: inputAction,
+      obscureText: isObscure,
+      onFieldSubmitted: onSubmitted,
+      decoration: InputDecoration(
+          labelText: label,
+          labelStyle:
+              const TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
+          hintText: hint,
+          // prefixText: prefixText,
+          prefix: Text(prefixText ?? ''),
+          suffixIcon: suffixIcon,
+          contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+          // prefixIcon: Text(prefixText??''),
+          border: _getBorder(),
+          enabledBorder: _getBorder(),
+          disabledBorder: _getBorder(),
+          focusedBorder: _getBorder()),
+    );
   }
 
-  Widget createButton(
-      {required String title, required VoidCallback onPressed}) {
-    return ElevatedButton(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(backgroundColor: AppColors.buttonColor),
-        child: Fip5Text(
-          title: title,
-          textColor: Colors.white,
-        ));
+  OutlineInputBorder _getBorder() {
+    return OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8),
+        borderSide: const BorderSide(color: Colors.brown));
   }
 }
+//
+// mixin Fip5Views {
+//   AppBar getAppBar({required String title, Color? color}) {
+//     return AppBar(
+//         backgroundColor: color ?? Colors.white,
+//         elevation: 4,
+//         shape: const RoundedRectangleBorder(
+//             borderRadius: BorderRadius.vertical(bottom: Radius.circular(25))),
+//         title: Text(title, style: TextStyle(color: Colors.black)),
+//         centerTitle: true);
+//   }
+//
+//   Widget createButton(
+//       {required String title, required VoidCallback onPressed}) {
+//     return ElevatedButton(
+//         onPressed: onPressed,
+//         style: ElevatedButton.styleFrom(backgroundColor: AppColors.buttonColor),
+//         child: Fip5Text(
+//           title: title,
+//           textColor: Colors.white,
+//         ));
+//   }
+//
+//   Widget createTextFormField({
+//     required TextEditingController controller,
+//     required FocusNode focusNode,
+//   }) {
+//     return TextFormField(
+//       controller: controller,
+//       focusNode: focusNode,
+//       decoration: InputDecoration(
+//           border: OutlineInputBorder(
+//               borderRadius: BorderRadius.circular(8),
+//               borderSide:
+//                   BorderSide(color: AppColors.scaffoldBackgroundColor))),
+//     );
+//   }
+// }

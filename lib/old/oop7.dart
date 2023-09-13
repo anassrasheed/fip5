@@ -11,6 +11,7 @@ abstract class Shape {
     print("hello");
   }
 }
+
 class Rectangle extends Shape {
   double height;
   double width;
@@ -60,4 +61,12 @@ void main() {
   Circle circle = Circle();
   circle.printHello(); // Hello Circle
   square.printHello(); // Hello
+
+  printShape(rectangle);
+  printShape(circle);
+  printShape(square);
+}
+
+void printShape(Shape shape) { // dependency injection
+  print(shape.area());
 }

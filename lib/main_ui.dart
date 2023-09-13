@@ -1,21 +1,21 @@
 import 'package:fip5/config/app_colors.dart';
-import 'package:fip5/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:get/get.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:sizer/sizer.dart';
 
+import 'getx/counter_example/counter_view.dart';
+import 'getx/navigators/screen_a.dart';
+import 'getx/navigators/screen_b.dart';
+import 'getx/navigators/screen_c.dart';
 import 'l10n/app_language.dart';
-import 'old/builders/list_view_builder.dart';
 import 'old/generated/l10n.dart';
-import 'old/navigations/screen_a.dart';
-import 'old/navigations/screen_b.dart';
-import 'old/navigations/screen_c.dart';
 
 void main() {
   runApp(ScopedModel<AppLanguage>(
-    child: const MyApp(),
     model: AppLanguage(),
+    child: const MyApp(),
   ));
 }
 
@@ -31,8 +31,8 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return ScopedModelDescendant<AppLanguage>(builder: (context, child, model) {
       return Sizer(builder: (context, orientation, deviceType) {
-        return MaterialApp(
-          home: const SplashScreen(),
+        return GetMaterialApp(
+          home: CounterScreen(),
           locale: model.appLocale,
           supportedLocales: S.delegate.supportedLocales,
           localizationsDelegates: const [
@@ -52,11 +52,17 @@ class _MyAppState extends State<MyApp> {
               // textTheme: GoogleFonts.abelTextTheme(Theme.of(context).textTheme),
               // ctrl + s  hotReload
               shadowColor: Colors.red),
-          routes: {
-            "/screenA": (c) => ScreenA(),
-            "/screenB": (c) => ScreenB(),
-            "/screenC": (c) => const ScreenC(),
-          },
+          // routes: {
+          //   "/screenA": (c) => ScreenA(),
+          //   "/screenB": (c) => ScreenB(),
+          //   "/screenC": (c) => const ScreenC(),
+          // },
+          getPages: [
+            GetPage(
+              name: "/screenA",
+              page: () => ScreenA(),
+            )
+          ],
           // initialRoute: "/screenA",
           title: "Fip5",
           debugShowCheckedModeBanner: false,
@@ -98,12 +104,12 @@ class FirstScreen extends StatelessWidget {
           child: Container(
             color: Colors.yellow,
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: const [
                 Text("Anas"),
                 Text("Hussain"),
               ],
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.start,
             ),
           )), // column row
     );

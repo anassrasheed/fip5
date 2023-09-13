@@ -44,7 +44,7 @@ void main() {
 
 // class Object // attributes
 // Name Age Weight Height Ssn
-class Person {
+class Person { // model
   // upper camel case
   // data type
   // object

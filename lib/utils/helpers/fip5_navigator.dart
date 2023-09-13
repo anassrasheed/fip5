@@ -12,7 +12,7 @@ class FIP5Navigator<T> {
     rootNav = rootNavigator;
   }
 
-  final int _delay = 2000;
+  final int _delay = 800;
 
   Future<T?> push(Widget child) {
     return Navigator.of(context, rootNavigator: rootNav).push(

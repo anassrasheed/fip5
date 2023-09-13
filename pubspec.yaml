@@ -47,6 +47,8 @@ dependencies:
   smooth_page_indicator:
   shared_preferences:
   lottie:
+  image_picker: 1.0.4
+  get: 4.6.5
 dev_dependencies:
   flutter_test:
     sdk: flutter

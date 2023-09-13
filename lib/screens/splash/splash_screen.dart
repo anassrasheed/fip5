@@ -58,11 +58,14 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void _navigate() {
+    // bool x=true;
+    // print(x==true?"anas":"ahmad");
+    // print(x?"anas":"ahmad");
     Timer(const Duration(seconds: 5), () async {
-      bool isIntroEnteredBefore = SharedPreferenceHelper()
-          .read(key: CacheKeys.introKey, type: SaveType.boolType) as bool;
+      bool? isIntroEnteredBefore = await SharedPreferenceHelper()
+          .read(key: CacheKeys.introKey, type: SaveType.boolType) as bool?;
       FIP5Navigator.of(context).pushReplacement(
-          isIntroEnteredBefore ? const LoginScreen() : const IntroScreen());
+          isIntroEnteredBefore!= null && isIntroEnteredBefore ? const LoginScreen() : const IntroScreen());
     });
   }
 }
