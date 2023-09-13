@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, unnecessary_string_escapes
+
 import 'package:fip5/config/app_colors.dart';
 import 'package:fip5/config/cache_keys.dart';
 import 'package:fip5/screens/authintication/login/login_screen.dart';
@@ -98,9 +100,9 @@ class _IntroScreenState extends State<IntroScreen> {
   }
 
   void _fillPages() {
-      _screens.add(IntroItem(image: "assets\funrecognizable-sportswoman-practicing-with-kettle-bell-cross-training-fitness-center.jpg", text: "Welcome to Fit Kit"));
-    _screens.add(IntroItem(image: "assets\ffitman.webp", text: "Join a thriving fitness community, connect with like-minded individuals, and share your successes on your fitness journey."));
-    _screens.add(IntroItem(image: "assets\f_gym_1.png", text: "Are you ready to transform your life through fitness? Let's take the first step together! Sign up and get started today."));
+    _screens.add(IntroItem(image: "assets/fitman.webp", text: "Welcome to Fit Kit"));
+    _screens.add(IntroItem(image: "assets/goal.jpg", text: "Join a thriving fitness community, connect with like-minded individuals, and share your successes on your fitness journey."));
+    _screens.add(IntroItem(image: "assets/gym.png", text: "Are you ready to transform your life through fitness? Let's take the first step together! Sign up and get started today."));
   }
   
   void _saveData() async{

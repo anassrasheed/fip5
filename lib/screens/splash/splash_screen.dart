@@ -34,7 +34,7 @@ class _SplashViewState extends State<SplashView> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Lottie.asset(
-              'assets/images/olympic-athlete.json',
+              'assets/olympic-athlete.json',
               width: 200.w, // Use .w for width scaling
               height: 200.h, // Use .h for height scaling
             ),
@@ -49,11 +49,11 @@ class _SplashViewState extends State<SplashView> {
   }
 
  void _navigate() {
-    Timer(const Duration(seconds: 5), () {
-       bool isIntroEnteredBefore = SharedPreferenceHelper()
-          .read(key: CacheKeys.introKey, type: SaveType.boolType) as bool;
+    Timer(const Duration(seconds: 5), () async {
+       bool? isIntroEnteredBefore =await SharedPreferenceHelper()
+          .read(key: CacheKeys.introKey, type: SaveType.boolType) as bool?;
       FIP5Navigator.of(context).pushReplacement(
-          isIntroEnteredBefore ? const LoginScreen() : const IntroScreen());
+          isIntroEnteredBefore  != null && isIntroEnteredBefore ? const LoginScreen() : const IntroScreen());
     });
   }
 }

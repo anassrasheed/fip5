@@ -8,7 +8,7 @@ class SharedPreferenceHelper {
 
   SharedPreferenceHelper._private();
 
-  //
+  
   // Future<void> saveString({required String key, required String value}) async {
   //   final SharedPreferences prefs = await SharedPreferences.getInstance();
   //   prefs.setString(key, value);
@@ -28,29 +28,34 @@ class SharedPreferenceHelper {
     switch (type) {
       case SaveType.boolType:
         {
-          prefs.setBool(key, value);
+           prefs.setBool(key, value);
+           return;
         }
-        break;
+        
       case SaveType.stringType:
         {
           prefs.setString(key, value);
+        return;
         }
-        break;
+       
       case SaveType.intType:
         {
           prefs.setInt(key, value);
+        return;
         }
-        break;
+       
       case SaveType.doubleType:
         {
           prefs.setDouble(key, value);
+        return;
         }
-        break;
+      
       case SaveType.stringListType:
         {
           prefs.setStringList(key, value);
+        return;
         }
-        break;
+      
     }
   }
 
