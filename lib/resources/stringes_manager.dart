@@ -16,7 +16,11 @@ class AppString {
   static const tearmAndConditions = 'Terms & Conditions';
   static const EmailId = 'Email Id*';
   static const Password = 'Password*';
-   static const username = 'UserName*';
+  static const username = 'UserName*';
   static const ForgotPassword = 'Forgot Password?';
   static const Donthaveanaccount = 'Don’t have an account?';
+  static const TakeaPhoto = 'Take a Photo';
+ static const ChoosefromGallery = 'Choose from Gallery';
+ static const Choosethelanguageyou = 'Choose the language you';
+ static const prefertouse = 'prefer to use .';
 }

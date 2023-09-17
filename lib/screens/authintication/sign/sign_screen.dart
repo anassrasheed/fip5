@@ -9,6 +9,7 @@ import 'package:fip5/utils/ui/common_views.dart';
 import 'package:fip5/utils/ui/fip5_text.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SignScreen extends StatelessWidget {
   const SignScreen({super.key});
@@ -20,7 +21,7 @@ class SignScreen extends StatelessWidget {
         children: [
           // Background Image
           Image.asset(
-            "assets/images/fitman.webp", // Replace with your image asset path
+            "assets/fitman.webp", 
             fit: BoxFit.cover,
             width: double.infinity,
             height: double.infinity,
@@ -65,7 +66,7 @@ class SignScreen extends StatelessWidget {
               left: 20, // Adjust the position as needed
               right: 20, // Adjust the position as needed
               child: CommonViews().createButton(
-                  title: AppString.signup,
+                  title:AppLocalizations.of(context)!.signup,
                   onPressed:() {
                     FIP5Navigator.of(context)
                             .pushAndRemoveUntil(SignupScreen());
@@ -85,7 +86,7 @@ class SignScreen extends StatelessWidget {
               },
               child:
                FipText(
-                  title: AppString.loginWithAcount,
+                  title:AppLocalizations.of(context)!. loginwithacount,
                   fontWeight: FontWeight.w400,
                   TextColor: AppColors.textcolor,
                   fontSize: 16,

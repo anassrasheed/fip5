@@ -9,6 +9,8 @@ import 'package:fip5/utils/ui/fip5_text.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sizer/sizer.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 import '../../../config/app_colors.dart';
 
@@ -69,7 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
 
                 FipText(
-                  title: AppString.Welcome,
+                  title: AppLocalizations.of(context)!.welcome,
                   fontWeight: FontWeight.w500,
                   fontSize: 36.sp,
                 ),
@@ -80,38 +82,19 @@ class _LoginScreenState extends State<LoginScreen> {
                 CommonViews().textFormField(
                     Controller: _emailcontroller,
                     FocusNode: _emailfocusnode,
-                    Hinttext: AppString.EmailId,
+                    Hinttext: AppLocalizations.of(context)!.emailid,
                     keyboardtype: TextInputType.emailAddress,
                     suffixicon: Icon(Icons.email)),
 
-                // TextFormField(
-                //   decoration: InputDecoration(
-                //     hintText: 'Email Id*',
-                //     hintStyle: TextStyle(
-                //       fontSize: 20,
-                //       fontWeight: FontWeight.w500,
-                //     ),
-                //     suffixIcon: Icon(Icons.email),
-                //   ),
-                // ),
+                
                 SizedBox(
                   height: 20,
                 ),
-                // TextFormField(
-                //   obscureText: true, // For password input
-                //   decoration: InputDecoration(
-                //     hintText: 'Password*',
-                //     hintStyle: TextStyle(
-                //       fontSize: 20,
-                //       fontWeight: FontWeight.w500,
-                //     ),
-                //     suffixIcon: Icon(Icons.lock),
-                //   ),
-                // ),
+               
                 CommonViews().textFormField(
                   Controller: _passwordcontroller,
                   FocusNode: _passwordfocusnode,
-                  Hinttext: AppString.Password,
+                  Hinttext: AppLocalizations.of(context)!.password,
                   suffixicon: IconButton(
                     //. If _obscureText is false, it shows the "visibility" icon (an eye), indicating that the password is visible.
                     onPressed: () {
@@ -129,16 +112,18 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(
                   height: 10,
                 ),
-                Text("Forgot Password?",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
-                    )),
+                 FipText(
+                  title: AppLocalizations.of(context)!.forgotpassword,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 18.sp,
+                ),
+
+               
                 SizedBox(
                   height: 5.h,
                 ),
                 CommonViews().createButton(
-                  title: AppString.login,
+                  title: AppLocalizations.of(context)!.login,
                   onPressed: () {
                     // Navigate to the Login screen here
                     FIP5Navigator.of(context)
@@ -150,7 +135,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 Center(
                   child: FipText(
-                    title: AppString.oR,
+                    title:AppLocalizations.of(context)!.or,
                     fontWeight: FontWeight.w500,
                     TextColor: Colors.red,
                     fontSize: 18.sp,
@@ -206,7 +191,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         FipText(
-                          title: AppString.Donthaveanaccount,
+                          title: AppLocalizations.of(context)!.donthaveanaccount,
                           fontWeight: FontWeight.w500,
                           TextColor: Colors.red,
                           fontSize: 14.sp,
@@ -222,7 +207,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             );
                           },
                           child: FipText(
-                            title: AppString.signup,
+                            title: AppLocalizations.of(context)!.signup,
                             fontWeight: FontWeight.w500,
                             TextColor: Colors.blue,
                             fontSize: 14.sp,

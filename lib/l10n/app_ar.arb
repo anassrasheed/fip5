@@ -1,0 +1,32 @@
+{
+    "language" :"العربية",
+    "noroutefound":"لم يتم العثور على الطريق",
+    "signup":"تسجيل",
+    "login":" تسجيل الدخول",
+    "welcome":" مرحبا",
+    "loginwithacount":" تسجيل الدخول باستخدام الحساب",
+    "signintoyouraccount" :"تسجيل الدخول الى حسابك",
+    "creatyouraccount":"انشاء حساب",
+    "ireadandagree":"قرأت و وافقت على ",
+    "or":"أو ",
+    "alreadyhaveanaccount":"هل لديك حساب بالفعل؟ ",
+    "tearmandconditions":"الشروط والاحكام  ",
+    "emailid":"البريد الالكتروني*", 
+    "password":"كلمة المرور* ",
+    "username":"اسم المستخدم*",
+    "forgotpassword" : "نسيت كلمة المرور" ,
+    "donthaveanaccount" : "ليس لديك حساب؟",
+    "takeaphoto" :"التقط صورة",
+    "choosefromgallery" : "اختر صورة من معرض الصور",
+    "pleasechooseimage" :" الرجاء اختيار صورة ",
+    "choosethelanguageyou" : "اختر اللغة التي",
+    "prefertouse" : "تفضل استخدامها "
+    }
+
+
+
+
+    
+    
+   
+    
