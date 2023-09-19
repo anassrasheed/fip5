@@ -1,13 +1,9 @@
-import 'dart:async';
 
-import 'package:fip5/config/cache_keys.dart';
 import 'package:fip5/resources/stringes_manager.dart';
-import 'package:fip5/screens/authintication/login/login_screen.dart';
-import 'package:fip5/screens/intrduction/intro_screen.dart';
-import 'package:fip5/utils/helpers/fip5_navigator.dart';
-import 'package:fip5/utils/helpers/shared_prefs_helper.dart';
+import 'package:fip5/screens/splash/splash_controller.dart';
 import 'package:fip5/utils/ui/fip5_text.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sizer/sizer.dart';
 
@@ -19,12 +15,8 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashViewState extends State<SplashView> {
-  @override
-  void initState() {
-    _navigate();
-    super.initState();
-  }
-
+  SplashController splashController =Get.put(SplashController());
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,14 +42,5 @@ class _SplashViewState extends State<SplashView> {
     );
   }
 
-  void _navigate() {
-    Timer(const Duration(seconds: 5), () async {
-      bool? isIntroEnteredBefore = await SharedPreferenceHelper()
-          .read(key: CacheKeys.introKey, type: SaveType.boolType) as bool?;
-      FIP5Navigator.of(context).pushReplacement(
-          isIntroEnteredBefore != null && isIntroEnteredBefore
-              ? const LoginScreen()
-              : const IntroScreen());
-    });
-  }
+  
 }

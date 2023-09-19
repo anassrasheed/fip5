@@ -5,10 +5,12 @@ import 'dart:io';
 import 'package:fip5/config/app_colors.dart';
 import 'package:fip5/resources/stringes_manager.dart';
 import 'package:fip5/screens/authintication/login/login_screen.dart';
+import 'package:fip5/screens/authintication/signup/signup_controller.dart';
 import 'package:fip5/utils/ui/common_views.dart';
 import 'package:fip5/utils/ui/fip5_text.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -25,17 +27,18 @@ class SignupScreen extends StatefulWidget {
 class _SignupScreenState extends State<SignupScreen> {
   bool isChecked = false;
   GlobalKey formkey = GlobalKey();
-  TextEditingController _usernamecontroller = TextEditingController();
-  TextEditingController _emailcontroller = TextEditingController();
-  TextEditingController _passwordcontroller = TextEditingController();
-  FocusNode _usernamefocusnode = FocusNode();
-  FocusNode _emailfocusnode = FocusNode();
-  FocusNode _passwordfocusnode = FocusNode();
+  final TextEditingController _usernamecontroller = TextEditingController();
+  final TextEditingController _emailcontroller = TextEditingController();
+  final TextEditingController _passwordcontroller = TextEditingController();
+  final FocusNode _usernamefocusnode = FocusNode();
+  final FocusNode _emailfocusnode = FocusNode();
+  final FocusNode _passwordfocusnode = FocusNode();
   bool _obscureText =
       false; // Initialize it to true to hide the password by default
 
   File? _selectedImage; // Store the selected image
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  Signupcontroller signupcontroller = Get.put(Signupcontroller());
 
   @override
   Widget build(BuildContext context) {
@@ -121,46 +124,53 @@ class _SignupScreenState extends State<SignupScreen> {
                     height: 20,
                   ),
                   CommonViews().textFormField(
-                    Controller: _passwordcontroller,
-                    FocusNode: _passwordfocusnode,
-                    Hinttext: AppLocalizations.of(context)!.password,
-                    suffixicon: IconButton(
-                      //. If _obscureText is false, it shows the "visibility" icon (an eye), indicating that the password is visible.
-                      onPressed: () {
-                        setState(() {
-                          _obscureText =
-                              !_obscureText; // Toggle the obscureText value
-                        });
-                      },
-                      icon: Icon(
-                        _obscureText ? Icons.visibility : Icons.visibility_off,
-                        color:
-                            Colors.grey, // Customize the icon color as needed
-                      ),
-                    ),
-                  ),
+                      Controller: _passwordcontroller,
+                      FocusNode: _passwordfocusnode,
+                      Hinttext: AppLocalizations.of(context)!.password,
+                      suffixicon: GetBuilder<Signupcontroller>(
+                        init: signupcontroller,
+                          builder: (signupcontroller) {
+                        return IconButton(
+                          //. If _obscureText is false, it shows the "visibility" icon (an eye), indicating that the password is visible.
+                          onPressed: () {
+                            signupcontroller.togglePasswordVisibility();
+                          },
+                          icon: Icon(
+                            _obscureText
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                            color: Colors
+                                .grey, // Customize the icon color as needed
+                          ),
+                        );
+                      })),
                   Row(
                     children: [
-                      Checkbox(
-                        value: isChecked,
-                        onChanged: (newValue) {
-                          setState(() {
-                            isChecked = newValue ?? false;
-                          });
+                      GetBuilder<Signupcontroller>(
+                        init: signupcontroller,
+                        builder: (signupcontroller) {
+                          return Checkbox(
+                            value: signupcontroller.isChecked,
+                            onChanged: (newValue) {
+                              signupcontroller
+                                  .toggleCheckbox(newValue ?? false);
+                            },
+                          );
                         },
                       ),
                       FipText(
-                        title:AppLocalizations.of(context)!.ireadandagree,
+                        title: AppLocalizations.of(context)!.ireadandagree,
                         fontWeight: FontWeight.w500,
                         TextColor: AppColors.disbaleIndicator,
                         fontSize: 14.sp,
                       ),
                       TextButton(
                         onPressed: () {
-                          // Add your Terms & Conditions link here
+                          // Add  Terms & Conditions link here
                         },
                         child: FipText(
-                          title: AppLocalizations.of(context)!.tearmandconditions,
+                          title:
+                              AppLocalizations.of(context)!.tearmandconditions,
                           fontWeight: FontWeight.w500,
                           TextColor: AppColors.disbaleIndicator,
                           fontSize: 14.sp,
@@ -173,7 +183,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      // Add your Sign Up logic here
+                      // Add  Sign Up logic here
                     },
                     style: ElevatedButton.styleFrom(
                       primary: Color(0xFFC12323),
@@ -189,7 +199,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   SizedBox(height: 10),
                   Center(
                     child: FipText(
-                      title:AppLocalizations.of(context)!.or,
+                      title: AppLocalizations.of(context)!.or,
                       fontWeight: FontWeight.w500,
                       TextColor: AppColors.buttonColor,
                       fontSize: 18.sp,
@@ -250,7 +260,8 @@ class _SignupScreenState extends State<SignupScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           FipText(
-                            title: AppLocalizations.of(context)!.alreadyhaveanaccount,
+                            title: AppLocalizations.of(context)!
+                                .alreadyhaveanaccount,
                             fontWeight: FontWeight.w500,
                             TextColor: AppColors.buttonColor,
                             fontSize: 14.sp,
@@ -318,7 +329,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 TextColor: AppColors.buttonColor,
                 fontSize: 14.sp,
               ),
-             // Text('Choose from Gallery'),
+              // Text('Choose from Gallery'),
               onTap: () async {
                 final picker = ImagePicker();
                 final pickedImage =

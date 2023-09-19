@@ -1,9 +1,11 @@
 // ignore_for_file: sort_child_properties_last, deprecated_member_use
 
 import 'package:fip5/config/app_colors.dart';
-import 'package:fip5/screens/splash/splash_screen.dart';
+import 'package:fip5/screens/splash/splash_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -48,7 +50,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
   
       return Sizer(builder: (context, orientation, deviceType) {
-        return MaterialApp(
+        return GetMaterialApp(
           home: const SplashView(),
          // locale: model.appLocale,
            locale: _locale,
@@ -62,13 +64,13 @@ class _MyAppState extends State<MyApp> {
           Locale('en', ''),
           Locale('ar', ''),
         ],
-         // supportedLocales: S.delegate.supportedLocales,
-          // localizationsDelegates: const [
-          //   S.delegate,
-          //   GlobalMaterialLocalizations.delegate,
-          //   GlobalCupertinoLocalizations.delegate,
-          //   GlobalWidgetsLocalizations.delegate,
-          // ],
+          getPages: [
+          GetPage(name: '/', page: () => SplashView()),
+          // Add other pages/routes using GetPage
+          // GetPage(name: '/screenA', page: () => ScreenA()),
+          // GetPage(name: '/screenB', page: () => ScreenB()),
+          // GetPage(name: '/screenC', page: () => const ScreenC()),
+        ],
           theme: ThemeData(
               // colors
               primaryColor: AppColors.primaryColor,

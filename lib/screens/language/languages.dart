@@ -3,8 +3,7 @@
 import 'package:fip5/config/app_colors.dart';
 import 'package:fip5/main.dart';
 import 'package:fip5/resources/stringes_manager.dart';
-import 'package:fip5/screens/authintication/sign/sign_screen.dart';
-import 'package:fip5/utils/ui/common_views.dart';
+import 'package:fip5/screens/authintication/login/login_screen.dart';
 import 'package:fip5/utils/ui/fip5_text.dart';
 import 'package:flutter/material.dart';
 import '../../utils/helpers/fip5_navigator.dart';
@@ -14,8 +13,7 @@ class LanguageScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CommonViews commonViews =
-        CommonViews(); // Create an instance of CommonViews
+   
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -54,142 +52,61 @@ class LanguageScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // InkWell(
-                      //   // onTap: () {
-                      //   //   MyApp.of(context)!.setLocale(
-                      //   //       const Locale.fromSubtags(languageCode: 'en'));
-                      //   //   FIP5Navigator.of(context)
-                      //   //       .pushAndRemoveUntil(LoginScreen());
-                      //   // },
-                      //   onTap: () {
-                      //       print('English button tapped');
-                      //       MyApp.of(context)!.setLocale(
-                      //         const Locale.fromSubtags(languageCode: 'en'));
-                      //          FIP5Navigator?.of(context)
-                      //           .pushAndRemoveUntil(LoginScreen());
+                      InkWell(
+                        
 
-                      //   },
-                      //   child: Container(
-                      //     height: 180,
-                      //     width: 150,
-                      //     padding: const EdgeInsets.all(20),
-                      //     decoration: BoxDecoration(
-                      //       color: const Color.fromARGB(255, 248, 248, 248),
-                      //       border: Border.all(color: Colors.white),
-                      //       borderRadius: BorderRadius.circular(25),
-                      //       boxShadow: [
-                      //         const BoxShadow(
-                      //             color: Color.fromARGB(255, 241, 241, 241),
-                      //             blurRadius: 6.0,
-                      //             spreadRadius: 3.0,
-                      //             offset: Offset(
-                      //               3.0, // Move to right 7.0 horizontally
-                      //               3.0,
-                      //             ))
-                      //       ],
-                      //     ),
-                      //     child: Column(
-                      //       children: [
-                      //         SizedBox(
-                      //           height: 100,
-                      //           width: 100,
-                      //           child: Image.asset("assets/english.png",
-                      //               fit: BoxFit.contain),
-                      //         ),
-                      //         SizedBox(
-                      //           height: 9,
-                      //         ),
-                      //         FipText(
-                      //           title: "English",
-                      //           fontWeight: FontWeight.bold,
-                      //           TextColor: AppColors.Black,
-                      //         )
-                      //       ],
-                      //     ),
-                      //   ),
-                      // ),
-
-                      commonViews.languageButton(
-                        image: "assets/english.png",
-                        ontap: () {
-                          MyApp.of(context).setLocale(
+                        onTap: () {
+                            print('English button tapped');
+                            MyApp.of(context).setLocale(
                               const Locale.fromSubtags(languageCode: 'en'));
-                          FIP5Navigator.of(context)
-                              .pushAndRemoveUntil(SignScreen());
+                               FIP5Navigator?.of(context)
+                                .pushAndRemoveUntil(LoginScreen());
+
                         },
-                        title: "English",
+                        child: _buildLanguageButton("assets/english.png", "English")
                       ),
+
+                      // commonViews.languageButton(
+                      //   image: "assets/english.png",
+                      //   ontap: () {
+                      //     MyApp.of(context).setLocale(
+                      //         const Locale.fromSubtags(languageCode: 'en'));
+                      //     FIP5Navigator.of(context)
+                      //         .pushAndRemoveUntil(SignScreen());
+                      //   },
+                      //   title: "English",
+                      // ),
 
                       const SizedBox(
                         width: 20,
                       ),
-                      // InkWell(
-                      //   // onTap: () {
-                      //   //   MyApp.of(context)!.setLocale(
-                      //   //       const Locale.fromSubtags(languageCode: 'ar'));
-                      //   //   FIP5Navigator.of(context)
-                      //   //       .pushAndRemoveUntil(LoginScreen());
-                      //   // },
-                      //   onTap: () {
-                      //       print('arabic button tapped');
-                      //        MyApp.of(context)!.setLocale(
-                      //         const Locale.fromSubtags(languageCode: 'ar'));
-                      //          FIP5Navigator?.of(context)
-                      //           .pushAndRemoveUntil(LoginScreen());
+                      InkWell(
+                        
+
+                        onTap: () {
+                            print('arabic button tapped');
+                             MyApp.of(context).setLocale(
+                              const Locale.fromSubtags(languageCode: 'ar'));
+                               FIP5Navigator?.of(context)
+                                .pushAndRemoveUntil(LoginScreen());
 
                           
-                      //   },
-
-                      //   child: Container(
-                      //     height: 180,
-                      //     width: 150,
-                      //     padding: const EdgeInsets.all(20),
-                      //     decoration: BoxDecoration(
-                      //       color: const Color.fromARGB(255, 248, 248, 248),
-                      //       border: Border.all(color: Colors.white),
-                      //       borderRadius: BorderRadius.circular(25),
-                      //       boxShadow: [
-                      //         const BoxShadow(
-                      //             color: Color.fromARGB(255, 241, 241, 241),
-                      //             blurRadius: 6.0,
-                      //             spreadRadius: 3.0,
-                      //             offset: Offset(
-                      //               3.0, // Move to right 7.0 horizontally
-                      //               3.0,
-                      //             ))
-                      //       ],
-                      //     ),
-                      //     child: Column(
-                      //       children: [
-                      //         SizedBox(
-                      //           height: 100,
-                      //           width: 100,
-                      //           child: Image.asset("assets/arabic.png",
-                      //               fit: BoxFit.contain),
-                      //         ),
-                      //         SizedBox(
-                      //           height: 9,
-                      //         ),
-                      //         FipText(
-                      //           title: "العربية",
-                      //           fontWeight: FontWeight.bold,
-                      //           TextColor: AppColors.Black,
-                      //         )
-                      //       ],
-                      //     ),
-                      //   ),
-                      // ),
-
-                      commonViews.languageButton(
-                        image: "assets/arabic.png",
-                        ontap: () {
-                          MyApp.of(context).setLocale(
-                              const Locale.fromSubtags(languageCode: 'ar'));
-                          FIP5Navigator.of(context)
-                              .pushAndRemoveUntil(SignScreen());
                         },
-                        title: "العربية",
+
+
+                        child: _buildLanguageButton("assets/arabic.png", "العربية")
                       ),
+
+                      // commonViews.languageButton(
+                      //   image: "assets/arabic.png",
+                      //   ontap: () {
+                      //     MyApp.of(context).setLocale(
+                      //         const Locale.fromSubtags(languageCode: 'ar'));
+                      //     FIP5Navigator.of(context)
+                      //         .pushAndRemoveUntil(SignScreen());
+                      //   },
+                      //   title: "العربية",
+                      // ),
                     ],
                   ),
                 ]),
@@ -197,5 +114,48 @@ class LanguageScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+  Widget _buildLanguageButton (String image ,String Title){
+    return Container(
+                          height: 180,
+                          width: 150,
+                          padding: const EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 248, 248, 248),
+                            border: Border.all(color: Colors.white),
+                            borderRadius: BorderRadius.circular(25),
+                            boxShadow: [
+                              const BoxShadow(
+                                  color: Color.fromARGB(255, 241, 241, 241),
+                                  blurRadius: 6.0,
+                                  spreadRadius: 3.0,
+                                  offset: Offset(
+                                    3.0, // Move to right 7.0 horizontally
+                                    3.0,
+                                  ))
+                            ],
+                          ),
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 100,
+                                width: 100,
+                                 child: Image.asset(image,
+                                
+                               // child: Image.asset("assets/arabic.png",
+                                    fit: BoxFit.contain),
+                              ),
+                              SizedBox(
+                                height: 9,
+                              ),
+                              FipText(
+                                title: Title,
+                                fontWeight: FontWeight.bold,
+                                TextColor: AppColors.Black,
+                              )
+                            ],
+                          ),
+                        );
+
   }
 }

@@ -81,7 +81,7 @@ class SignScreen extends StatelessWidget {
               onPressed: () {
                 // Add your Log In logic here
                    FIP5Navigator.of(context)
-                            .pushAndRemoveUntil(LoginScreen());
+                   .pushAndRemoveUntil(LoginScreen());
                 
               },
               child:

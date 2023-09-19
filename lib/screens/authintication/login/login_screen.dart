@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:fip5/resources/stringes_manager.dart';
+import 'package:fip5/screens/authintication/login/login_controller.dart';
 import 'package:fip5/screens/authintication/signup/signup_screen.dart';
 import 'package:fip5/screens/gender/gender_screen.dart';
 import 'package:fip5/utils/helpers/fip5_navigator.dart';
@@ -8,9 +9,9 @@ import 'package:fip5/utils/ui/common_views.dart';
 import 'package:fip5/utils/ui/fip5_text.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 
 import '../../../config/app_colors.dart';
 
@@ -27,8 +28,9 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController _passwordcontroller = TextEditingController();
   FocusNode _emailfocusnode = FocusNode();
   FocusNode _passwordfocusnode = FocusNode();
-  bool _obscureText =
-      false; // Initialize it to true to hide the password by default
+  bool _obscureText = false;
+  LoginController loginController = Get.put(LoginController());
+// Initialize it to true to hide the password by default
 
   @override
   Widget build(BuildContext context) {
@@ -69,13 +71,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     )
                   ],
                 ),
-
                 FipText(
                   title: AppLocalizations.of(context)!.welcome,
                   fontWeight: FontWeight.w500,
                   fontSize: 36.sp,
                 ),
-
                 SizedBox(
                   height: 20.h,
                 ),
@@ -85,40 +85,39 @@ class _LoginScreenState extends State<LoginScreen> {
                     Hinttext: AppLocalizations.of(context)!.emailid,
                     keyboardtype: TextInputType.emailAddress,
                     suffixicon: Icon(Icons.email)),
-
-                
                 SizedBox(
                   height: 20,
                 ),
-               
                 CommonViews().textFormField(
-                  Controller: _passwordcontroller,
-                  FocusNode: _passwordfocusnode,
-                  Hinttext: AppLocalizations.of(context)!.password,
-                  suffixicon: IconButton(
-                    //. If _obscureText is false, it shows the "visibility" icon (an eye), indicating that the password is visible.
-                    onPressed: () {
-                      setState(() {
-                        _obscureText =
-                            !_obscureText; // Toggle the obscureText value
-                      });
-                    },
-                    icon: Icon(
-                      _obscureText ? Icons.visibility : Icons.visibility_off,
-                      color: Colors.grey, // Customize the icon color as needed
-                    ),
-                  ),
-                ),
+                    Controller: _passwordcontroller,
+                    FocusNode: _passwordfocusnode,
+                    Hinttext: AppLocalizations.of(context)!.password,
+                    suffixicon: GetBuilder<LoginController>(
+                      init: loginController,
+                        builder: (loginController) {
+                      return IconButton(
+                        //. If _obscureText is false, it shows the "visibility" icon (an eye), indicating that the password is visible.
+
+                        onPressed: () {
+                         loginController.passwordVisibility();
+                        },
+                        icon: Icon(
+                          _obscureText
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color:
+                              Colors.grey, // Customize the icon color as needed
+                        ),
+                      );
+                    })),
                 SizedBox(
                   height: 10,
                 ),
-                 FipText(
+                FipText(
                   title: AppLocalizations.of(context)!.forgotpassword,
                   fontWeight: FontWeight.w500,
                   fontSize: 18.sp,
                 ),
-
-               
                 SizedBox(
                   height: 5.h,
                 ),
@@ -135,7 +134,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 Center(
                   child: FipText(
-                    title:AppLocalizations.of(context)!.or,
+                    title: AppLocalizations.of(context)!.or,
                     fontWeight: FontWeight.w500,
                     TextColor: Colors.red,
                     fontSize: 18.sp,
@@ -191,7 +190,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         FipText(
-                          title: AppLocalizations.of(context)!.donthaveanaccount,
+                          title:
+                              AppLocalizations.of(context)!.donthaveanaccount,
                           fontWeight: FontWeight.w500,
                           TextColor: Colors.red,
                           fontSize: 14.sp,
