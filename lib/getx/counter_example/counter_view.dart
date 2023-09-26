@@ -15,67 +15,66 @@ class CounterScreen extends StatefulWidget {
 }
 
 class _CounterScreenState extends State<CounterScreen> {
- final CounterController currentController =
-      Get.put(CounterController()); // init  dependency injection
   @override
   Widget build(BuildContext context) {
+    return _getXExample();
+  }
+
+  Scaffold _getXExample() {
+    CounterController myController = Get.put(CounterController()); // inject
     return Scaffold(
       appBar: CommonViews().getAppBar(title: "getx"),
-      floatingActionButton: Obx(
-        ()=> FloatingActionButton(
-          backgroundColor: Colors.blue,
-          child: Icon(Icons.add),
-          onPressed: () {
-            currentController.incrementCounter();
-          },
-        ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.blue,
+        child: Icon(Icons.add),
+        onPressed: () {
+          // myController.incrementCounter();
+          myController.incrementCounter2();
+        },
       ),
       body: Center(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Text('this counter value is'),
-          Text('this counter value is'),
-          Text('this counter value is'),
-          Text('this counter value is'),
-          Text('this counter value is'),
-          Text('this counter value is'),
-          Text('this counter value is'),
-          Text('this counter value is'),
-          Text('this counter value is'),
-          Text('this counter value is'),
-          Text('this counter value is'),
-          Obx(() {
-            print("Counter 2 called");
-            return Text(currentController.counter2.value.toString()); // ignore
-          }),
-          Obx(() {
-            print("Counter 1 called");
-            return Text(currentController.counter.value.toString());
-          }),
+          GetX<CounterController>(
+              init: CounterController(),
+              builder: (controller) {
+                print("text called");
+                return Text(controller.counter.value.toString());
+              }),
+          Obx(() => Text(myController.counter2.value.toString())),
+          // listener observe thread
         ]),
       ),
     );
-    // print("Build Called");
-    // return GetBuilder<CounterController>(
-    //   init: CounterController(), // new object
-    //   builder: (currentController) {
-    //     return Scaffold(
-    //       appBar: CommonViews().getAppBar(title: "getx"),
-    //       floatingActionButton: FloatingActionButton(
-    //         backgroundColor: Colors.blue,
-    //         child: Icon(Icons.add),
-    //         onPressed: () {
-    //           currentController.incrementCounter();
-    //         },
-    //       ),
-    //       body: Center(
-    //         child:
-    //             Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-    //           Text('this counter value is'),
-    //           Text(currentController.model.counter.toString()), // update
-    //         ]),
-    //       ),
-    //     );
-    //   },
-    // );
+  }
+
+  Scaffold _getBuilderExample() {
+    return Scaffold(
+      appBar: CommonViews().getAppBar(title: "getx"),
+      floatingActionButton: GetBuilder<CounterController>(
+        init: CounterController(),
+        builder: (controller) {
+          print("button called");
+          return FloatingActionButton(
+            backgroundColor: Colors.blue,
+            child: Icon(Icons.add),
+            onPressed: () {
+              controller.incrementCounter();
+            },
+          );
+        },
+      ),
+      body: Center(
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Text('this counter value is'),
+          GetBuilder<CounterController>(
+              init: CounterController(),
+              builder: (controller) {
+                print("text called");
+                return Text(controller.counter.toString());
+              }),
+        ]),
+      ),
+    );
   }
 }

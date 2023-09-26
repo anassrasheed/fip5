@@ -1,18 +1,22 @@
 import 'package:fip5/config/app_colors.dart';
+import 'package:fip5/getx/counter_example/couter_controller.dart';
+import 'package:fip5/getx/sum_example/sum_view.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:sizer/sizer.dart';
 
-import 'getx/counter_example/counter_view.dart';
+import 'firebase_options.dart';
 import 'getx/navigators/screen_a.dart';
-import 'getx/navigators/screen_b.dart';
-import 'getx/navigators/screen_c.dart';
 import 'l10n/app_language.dart';
 import 'old/generated/l10n.dart';
+import 'screens/register/register_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized(); // be ready firebase
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(ScopedModel<AppLanguage>(
     model: AppLanguage(),
     child: const MyApp(),
@@ -32,7 +36,7 @@ class _MyAppState extends State<MyApp> {
     return ScopedModelDescendant<AppLanguage>(builder: (context, child, model) {
       return Sizer(builder: (context, orientation, deviceType) {
         return GetMaterialApp(
-          home: CounterScreen(),
+          home: RegisterScreen(),
           locale: model.appLocale,
           supportedLocales: S.delegate.supportedLocales,
           localizationsDelegates: const [
@@ -66,10 +70,19 @@ class _MyAppState extends State<MyApp> {
           // initialRoute: "/screenA",
           title: "Fip5",
           debugShowCheckedModeBanner: false,
+          initialBinding: MyBinding(),
         );
       });
       // wid
     });
+  }
+}
+
+class MyBinding extends Bindings {
+  @override
+  void dependencies() {
+    // Get.lazyPut(()=>SumController(),fenix: true); // no cache data
+    Get.put(CounterController());
   }
 }
 

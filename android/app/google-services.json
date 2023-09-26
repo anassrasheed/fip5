@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "116127087402",
+    "project_id": "fip5-9cbf9",
+    "storage_bucket": "fip5-9cbf9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:116127087402:android:06bbf3bd25a920ae997c53",
+        "android_client_info": {
+          "package_name": "com.iqra.app.fip5"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSmZVV5ID3QVz6mUfFZnrKggOTSrEN0Q4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

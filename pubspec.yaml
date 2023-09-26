@@ -49,6 +49,9 @@ dependencies:
   lottie:
   image_picker: 1.0.4
   get: 4.6.5
+  firebase_core:
+  firebase_auth:
+  flutter_spinkit:
 dev_dependencies:
   flutter_test:
     sdk: flutter

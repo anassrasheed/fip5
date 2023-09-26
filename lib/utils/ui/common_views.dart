@@ -1,5 +1,6 @@
 import 'package:fip5/config/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'fip5_text.dart';
 
@@ -43,6 +44,8 @@ class CommonViews {
       String? prefixText,
       String? hint,
       Widget? suffixIcon,
+      String? errorText,
+      FormFieldValidator<String>? validator,
       bool isObscure = false}) {
     return TextFormField(
       controller: controller,
@@ -50,21 +53,28 @@ class CommonViews {
       keyboardType: keyboardType,
       textInputAction: inputAction,
       obscureText: isObscure,
+      autovalidateMode: AutovalidateMode.always,
+      validator: (v) {
+        if (validator != null) return validator!.call(v.toString());
+      },
       onFieldSubmitted: onSubmitted,
       decoration: InputDecoration(
-          labelText: label,
-          labelStyle:
-              const TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
-          hintText: hint,
-          // prefixText: prefixText,
-          prefix: Text(prefixText ?? ''),
-          suffixIcon: suffixIcon,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-          // prefixIcon: Text(prefixText??''),
-          border: _getBorder(),
-          enabledBorder: _getBorder(),
-          disabledBorder: _getBorder(),
-          focusedBorder: _getBorder()),
+        labelText: label,
+        errorText: errorText,
+        labelStyle:
+            const TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
+        hintText: hint,
+        // prefixText: prefixText,
+        prefix: Text(prefixText ?? ''),
+        suffixIcon: suffixIcon,
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+        // prefixIcon: Text(prefixText??''),
+        border: _getBorder(),
+        enabledBorder: _getBorder(),
+        disabledBorder: _getBorder(),
+        focusedBorder: _getBorder(),
+      ),
     );
   }
 
@@ -72,6 +82,14 @@ class CommonViews {
     return OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),
         borderSide: const BorderSide(color: Colors.brown));
+  }
+
+  void showSnackBar(String title, String msg) {
+    Get.snackbar(title, msg,
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.white,
+        colorText: Colors.black,
+        duration: Duration(seconds: 5));
   }
 }
 //

@@ -2,8 +2,11 @@ import 'dart:io';
 
 import 'package:fip5/config/app_colors.dart';
 import 'package:fip5/config/app_constants.dart';
+import 'package:fip5/screens/register/register_controller.dart';
 import 'package:fip5/utils/ui/common_views.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sizer/sizer.dart';
 
@@ -15,16 +18,16 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  TextEditingController _userNameController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _mobileController = TextEditingController();
 
-  FocusNode _userNameFocus = FocusNode();
+  FocusNode _emailFocus = FocusNode();
   FocusNode _passwordFocus = FocusNode();
   FocusNode _mobileFocus = FocusNode();
   XFile? file;
-  GlobalKey<FormState> key = GlobalKey<FormState>();
   bool _isPasswordObscure = true;
+  RegisterController controller = Get.put(RegisterController());
 
   @override
   Widget build(BuildContext context) {
@@ -37,11 +40,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
         color: Colors.white,
         margin: const EdgeInsets.only(bottom: 10),
         child: Center(
-            child:
-                CommonViews().createButton(title: "Confirm", onPressed: () {})),
+            child: CommonViews().createButton(
+                title: "Register",
+                onPressed: () async {
+                  controller.registerWithEmailAndPassword(
+                      _emailController.text, _passwordController.text);
+                })),
       ),
       body: Form(
-        key: key,
+        key: controller.key,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 7.w),
           child: SingleChildScrollView(
@@ -54,40 +61,77 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 const SizedBox(
                   height: AppConstants.textFieldSpacing,
                 ),
-                CommonViews().createTextFormField(
-                    controller: _userNameController,
-                    focusNode: _userNameFocus,
-                    label: "Username",
-                    onSubmitted: (v) {
-                      setState(() {
-
-                      });
-                      _passwordFocus.requestFocus();
-                    },
-                    inputAction: TextInputAction.next),
+                Obx(
+                  () => CommonViews().createTextFormField(
+                      controller: _emailController,
+                      focusNode: _emailFocus,
+                      label: "Email",
+                      errorText: controller.emailError.value.isEmpty
+                          ? null
+                          : controller.emailError.value,
+                      onSubmitted: (v) {
+                        setState(() {});
+                        _passwordFocus.requestFocus();
+                      },
+                      inputAction: TextInputAction.next),
+                ),
                 const SizedBox(
                   height: AppConstants.textFieldSpacing,
                 ),
-                CommonViews().createTextFormField(
-                    controller: _passwordController,
-                    focusNode: _passwordFocus,
-                    label: "Password",
-                    isObscure: _isPasswordObscure,
-                    suffixIcon: InkWell(
-                        child: Icon(
-                            _isPasswordObscure
-                                ? Icons.visibility_outlined
-                                : Icons.visibility_off_outlined,
-                            color: Colors.brown),
-                        onTap: () {
-                          setState(() {
-                            _isPasswordObscure = !_isPasswordObscure;
-                          });
-                        }),
-                    onSubmitted: (v) {
-                      _mobileFocus.requestFocus();
-                    },
-                    inputAction: TextInputAction.next),
+                Obx(
+                  () => CommonViews().createTextFormField(
+                      controller: _passwordController,
+                      focusNode: _passwordFocus,
+                      label: "Password",
+                      errorText: controller.emailError.value.isEmpty
+                          ? null
+                          : controller.emailError.value,
+                      isObscure: _isPasswordObscure,
+                      suffixIcon: InkWell(
+                          child: Icon(
+                              _isPasswordObscure
+                                  ? Icons.visibility_outlined
+                                  : Icons.visibility_off_outlined,
+                              color: Colors.brown),
+                          onTap: () {
+                            setState(() {
+                              _isPasswordObscure = !_isPasswordObscure;
+                            });
+                          }),
+                      onSubmitted: (v) {
+                        _mobileFocus.requestFocus();
+                      },
+                      inputAction: TextInputAction.next),
+                ),
+                // CommonViews().createTextFormField(
+                //     controller: _passwordController,
+                //     focusNode: _passwordFocus,
+                //     label: "Password",
+                //     validator: (v) {
+                //       if (v != null && v.isEmpty) {
+                //         return "The field is required";
+                //       } else if (v != null && v.length < 6) {
+                //         return "Password must be strong";
+                //       } else {
+                //         return null;
+                //       }
+                //     },
+                //     isObscure: _isPasswordObscure,
+                //     suffixIcon: InkWell(
+                //         child: Icon(
+                //             _isPasswordObscure
+                //                 ? Icons.visibility_outlined
+                //                 : Icons.visibility_off_outlined,
+                //             color: Colors.brown),
+                //         onTap: () {
+                //           setState(() {
+                //             _isPasswordObscure = !_isPasswordObscure;
+                //           });
+                //         }),
+                //     onSubmitted: (v) {
+                //       _mobileFocus.requestFocus();
+                //     },
+                //     inputAction: TextInputAction.next),
                 const SizedBox(
                   height: AppConstants.textFieldSpacing,
                 ),
