@@ -52,6 +52,8 @@ dependencies:
   firebase_core:
   firebase_auth:
   flutter_spinkit:
+  cloud_firestore:
+  firebase_storage:
 dev_dependencies:
   flutter_test:
     sdk: flutter

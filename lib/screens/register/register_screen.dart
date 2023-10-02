@@ -3,12 +3,14 @@ import 'dart:io';
 import 'package:fip5/config/app_colors.dart';
 import 'package:fip5/config/app_constants.dart';
 import 'package:fip5/screens/register/register_controller.dart';
+import 'package:fip5/screens/register/user_model.dart';
 import 'package:fip5/utils/ui/common_views.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sizer/sizer.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -25,7 +27,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   FocusNode _emailFocus = FocusNode();
   FocusNode _passwordFocus = FocusNode();
   FocusNode _mobileFocus = FocusNode();
-  XFile? file;
+  XFile? xFile;
   bool _isPasswordObscure = true;
   RegisterController controller = Get.put(RegisterController());
 
@@ -43,8 +45,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
             child: CommonViews().createButton(
                 title: "Register",
                 onPressed: () async {
-                  controller.registerWithEmailAndPassword(
-                      _emailController.text, _passwordController.text);
+
+                  File file=File(xFile!.path);
+                  UserModel model = UserModel(
+                    email: _emailController.text,
+                    password: _passwordController.text,
+                    imgUrl: "",
+                    mobile: _mobileController.text,
+                  );
+                  model.file=file;
+                  controller.registerWithEmailAndPassword(model);
                 })),
       ),
       body: Form(
@@ -154,7 +164,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return InkWell(
       onTap: () async {
         ImagePicker picker = ImagePicker();
-        file = await picker.pickImage(source: ImageSource.camera); // permission
+        xFile = await picker.pickImage(source: ImageSource.camera); // permission
         setState(() {});
       },
       child: Container(
@@ -165,12 +175,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
           border: Border.all(color: Colors.black, width: 3),
         ),
         child: Center(
-            child: file == null
+            child: xFile == null
                 ? const Icon(Icons.photo)
                 : ClipRRect(
                     borderRadius: BorderRadius.circular(100),
                     child: Image.file(
-                      File(file!.path),
+                      File(xFile!.path),
                       fit: BoxFit.fill,
                     ),
                   )),

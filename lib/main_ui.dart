@@ -1,6 +1,7 @@
 import 'package:fip5/config/app_colors.dart';
 import 'package:fip5/getx/counter_example/couter_controller.dart';
 import 'package:fip5/getx/sum_example/sum_view.dart';
+import 'package:fip5/screens/login/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -36,7 +37,7 @@ class _MyAppState extends State<MyApp> {
     return ScopedModelDescendant<AppLanguage>(builder: (context, child, model) {
       return Sizer(builder: (context, orientation, deviceType) {
         return GetMaterialApp(
-          home: RegisterScreen(),
+          home: LoginScreen(),
           locale: model.appLocale,
           supportedLocales: S.delegate.supportedLocales,
           localizationsDelegates: const [

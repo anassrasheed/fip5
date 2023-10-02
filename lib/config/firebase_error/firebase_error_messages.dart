@@ -25,6 +25,8 @@ class FirebaseErrors {
       case 'ERROR_WRONG_PASSWORD':
       case 'wrong-password':
         return "E-mail address or password is incorrect.";
+        case 'INVALID_LOGIN_CREDENTIALS':
+        return "Wrong Email or Password";
       default:
         return "An error has occurred";
     }
