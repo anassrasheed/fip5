@@ -23,6 +23,12 @@ class _LoginScreenState extends State<LoginScreen> {
   LoginController controller = Get.put(LoginController());
 
   @override
+  void initState() {
+    _emailController.text="shoroq@gmail.com";
+    _passwordController.text="123456789";
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CommonViews().getAppBar(title: "Login"),

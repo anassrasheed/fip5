@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fip5/config/current_session.dart';
 import 'package:fip5/config/firebase_error/firebase_error_messages.dart';
+import 'package:fip5/screens/home/home_screen.dart';
 import 'package:fip5/screens/register/user_model.dart';
+import 'package:fip5/utils/helpers/fip5_navigator.dart';
 import 'package:fip5/utils/ui/common_views.dart';
 import 'package:fip5/utils/ui/progress_hud.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -25,7 +28,11 @@ class LoginController extends GetxController {
           UserModel? model = await _getDataFromFirestore(response.user!.uid);
           ProgressHud.shared.stopLoading();
           if (model != null) {
+            CurrentSession().user=model;
             CommonViews().showSnackBar("Success", "Login Successful");
+            // navigation
+            FIP5Navigator.of(Get.context!).pushAndRemoveUntil(HomeScreen());
+            // save user
           } else {
             CommonViews().showSnackBar("Failed", "Login Failed");
           }
@@ -51,9 +58,6 @@ class LoginController extends GetxController {
       return false;
     } else if (password.isEmpty) {
       passwordError.value = "Password is Required";
-      return false;
-    } else if (password.length < 6) {
-      passwordError.value = "please enter Strong password";
       return false;
     }
     return true;
