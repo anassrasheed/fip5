@@ -1,11 +1,11 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_key_in_widget_constructors, use_build_context_synchronously, unnecessary_cast, prefer_final_fields
 
 import 'dart:io';
 
 import 'package:fip5/config/app_colors.dart';
-import 'package:fip5/resources/stringes_manager.dart';
 import 'package:fip5/screens/authintication/login/login_screen.dart';
 import 'package:fip5/screens/authintication/signup/signup_controller.dart';
+import 'package:fip5/screens/authintication/signup/signup_model.dart';
 import 'package:fip5/utils/ui/common_views.dart';
 import 'package:fip5/utils/ui/fip5_text.dart';
 import 'package:flutter/material.dart';
@@ -14,8 +14,6 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import '../../../utils/helpers/fip5_navigator.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key});
@@ -26,265 +24,232 @@ class SignupScreen extends StatefulWidget {
 
 class _SignupScreenState extends State<SignupScreen> {
   bool isChecked = false;
+  File? pickedImage;
   GlobalKey formkey = GlobalKey();
   final TextEditingController _usernamecontroller = TextEditingController();
   final TextEditingController _emailcontroller = TextEditingController();
+
   final TextEditingController _passwordcontroller = TextEditingController();
+  final TextEditingController _mobileController = TextEditingController();
+
   final FocusNode _usernamefocusnode = FocusNode();
   final FocusNode _emailfocusnode = FocusNode();
   final FocusNode _passwordfocusnode = FocusNode();
-  bool _obscureText =
-      false; // Initialize it to true to hide the password by default
-
-  File? _selectedImage; // Store the selected image
+  final FocusNode _mobileFocus = FocusNode();
+  bool _isPasswordObscure = true;
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  Signupcontroller signupcontroller = Get.put(Signupcontroller());
+  RegisterController signupcontroller = Get.put(RegisterController());
+  XFile? xFile;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scaffoldKey,
-
-      backgroundColor:
-          Color(0xFFF8F8F8), // Use the 0x prefix to specify a hexadecimal color
-      appBar: AppBar(
-        backgroundColor: Color(
-            0xFFF8F8F8), // Use the 0x prefix to specify a hexadecimal color
-        elevation: 0,
-      ),
-
-      body: SizedBox(
-        height: 100.h,
+      backgroundColor: Colors.white,
+      resizeToAvoidBottomInset: false,
+      appBar: CommonViews().getAppBar(title: "Register"),
+      
+      body: Form(
+        key: signupcontroller.key,
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Form(
-            key: formkey,
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      DefaultTextStyle(
-                        style: TextStyle(
-                          fontSize: 36,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                        child: Text(AppString.fit),
-                      ),
-                      FipText(
-                        title: AppString.kit,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 36.sp,
-                        TextColor: AppColors.buttonColor,
-                      )
-                    ],
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      _showImagePickerBottomSheet();
+          padding: EdgeInsets.symmetric(horizontal: 7.w),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 25,
+                ),
+                Container(
+                    height: 100,
+                    width: 100,
+                    child: CircleAvatar(child: _getProfileImageView())),
+                const SizedBox(
+                  height: 20,
+                ),
+                
+                Obx(
+                  () => CommonViews().createTextFormField(
+                    controller: _emailcontroller,
+                    focusNode: _emailfocusnode,
+                    label: "Email",
+                    errorText: signupcontroller.emailError.value.isEmpty
+                        ? null
+                        : signupcontroller.emailError.value,
+                    onSubmitted: (v) {
+                      String trimmedEmail =
+                          _emailcontroller.text.trim().toLowerCase(); // Trim the email
+                      // Update the email controller with the trimmed email8/975583
+                      _emailcontroller.text = trimmedEmail;
+                      setState(() {});
+                      _passwordfocusnode.requestFocus();
                     },
-                    child: CircleAvatar(
-                      radius: 50.0,
-                      backgroundImage: _selectedImage != null
-                          ? Image(image: FileImage(_selectedImage!)).image
-                          : AssetImage('assets/defult_profile.png'),
+                    inputAction: TextInputAction.next,
+                  ),
+                ),
+
+                const SizedBox(
+                  height: 20,
+                ),
+                Obx(
+                  () => CommonViews().createTextFormField(
+                      controller: _usernamecontroller,
+                      focusNode: _usernamefocusnode,
+                      label: "user name",
+                      errorText: signupcontroller.emailError.value.isEmpty
+                          ? null
+                          : signupcontroller.emailError.value,
+                      onSubmitted: (v) {
+                        setState(() {});
+                        _passwordfocusnode.requestFocus();
+                      },
+                      inputAction: TextInputAction.next),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Obx(
+                  () => CommonViews().createTextFormField(
+                      controller: _passwordcontroller,
+                      focusNode: _passwordfocusnode,
+                      label: "Password",
+                      errorText: signupcontroller.emailError.value.isEmpty
+                          ? null
+                          : signupcontroller.emailError.value,
+                      isObscure: _isPasswordObscure,
+                      suffixIcon: InkWell(
+                          child: Icon(
+                              _isPasswordObscure
+                                  ? Icons.visibility_outlined
+                                  : Icons.visibility_off_outlined,
+                              color: Colors.brown),
+                          onTap: () {
+                            setState(() {
+                              _isPasswordObscure = !_isPasswordObscure;
+                            });
+                          }),
+                      onSubmitted: (v) {
+                        _mobileFocus.requestFocus();
+                      },
+                      inputAction: TextInputAction.next),
+                ),
+
+                const SizedBox(
+                  height: 20,
+                ),
+                CommonViews().createTextFormField(
+                    controller: _mobileController,
+                    focusNode: _mobileFocus,
+                    label: "Mobile Number",
+                    prefixText: "+962",
+                    hint: " 79000000",
+                    keyboardType: TextInputType.phone),
+                SizedBox(height: 10),
+                SizedBox(height: 5.h),
+                CommonViews().createButton(
+                    title: AppLocalizations.of(context)!.signup,
+                   
+                    onPressed: () async {
+                      if (xFile != null) {
+                        File file = File(xFile!.path);
+                        UserModel model = UserModel(
+                          email: _emailcontroller.text.toLowerCase(),
+                          password: _passwordcontroller.text.trim(),
+                          imgUrl: "",
+                          mobile: _mobileController.text.trim(),
+                          UserName: _usernamecontroller.text.trim(),
+                        );
+                        model.file = file;
+                        signupcontroller.registerWithEmailAndPassword(model);
+                      } else {
+                        CommonViews().showSnackBar(
+                            "feaild", "Chose your profile image please");
+                        print("xFile is null");
+                      }
+                    }),
+                Center(
+                  child: FipText(
+                    title: AppLocalizations.of(context)!.or,
+                    fontWeight: FontWeight.w500,
+                    TextColor: Colors.red,
+                    fontSize: 18.sp,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 15.w,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: AppColors.twitter,
+                          ),
+                          child: IconButton(
+                            icon: Icon(
+                              FontAwesomeIcons.twitter,
+                              color: AppColors.textcolor,
+                            ),
+                            onPressed: () {
+                              // Handle Twitter button press here
+                            },
+                          ),
+                        ),
+                        SizedBox(width: 8.w),
+                        Container(
+                          width: 15.w,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: AppColors.facebook,
+                          ),
+                          child: IconButton(
+                            icon: Icon(
+                              FontAwesomeIcons.facebook,
+                              color: AppColors.textcolor,
+                            ),
+                            onPressed: () {
+                              // Handle Facebook button press here
+                            },
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  FipText(
-                    title: AppLocalizations.of(context)!.creatyouraccount,
-                    fontWeight: FontWeight.w500,
-                    TextColor: AppColors.disbaleIndicator,
-                    fontSize: 24.sp,
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  CommonViews().textFormField(
-                      Controller: _usernamecontroller,
-                      FocusNode: _usernamefocusnode,
-                      Hinttext: AppLocalizations.of(context)!.username,
-                      suffixicon: Icon(Icons.person)),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  CommonViews().textFormField(
-                      Controller: _emailcontroller,
-                      FocusNode: _emailfocusnode,
-                      Hinttext: AppLocalizations.of(context)!.emailid,
-                      keyboardtype: TextInputType.emailAddress,
-                      suffixicon: Icon(Icons.email)),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  CommonViews().textFormField(
-                      Controller: _passwordcontroller,
-                      FocusNode: _passwordfocusnode,
-                      Hinttext: AppLocalizations.of(context)!.password,
-                      suffixicon: GetBuilder<Signupcontroller>(
-                        init: signupcontroller,
-                          builder: (signupcontroller) {
-                        return IconButton(
-                          //. If _obscureText is false, it shows the "visibility" icon (an eye), indicating that the password is visible.
-                          onPressed: () {
-                            signupcontroller.togglePasswordVisibility();
-                          },
-                          icon: Icon(
-                            _obscureText
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                            color: Colors
-                                .grey, // Customize the icon color as needed
-                          ),
-                        );
-                      })),
-                  Row(
-                    children: [
-                      GetBuilder<Signupcontroller>(
-                        init: signupcontroller,
-                        builder: (signupcontroller) {
-                          return Checkbox(
-                            value: signupcontroller.isChecked,
-                            onChanged: (newValue) {
-                              signupcontroller
-                                  .toggleCheckbox(newValue ?? false);
-                            },
-                          );
-                        },
-                      ),
-                      FipText(
-                        title: AppLocalizations.of(context)!.ireadandagree,
-                        fontWeight: FontWeight.w500,
-                        TextColor: AppColors.disbaleIndicator,
-                        fontSize: 14.sp,
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          // Add  Terms & Conditions link here
-                        },
-                        child: FipText(
-                          title:
-                              AppLocalizations.of(context)!.tearmandconditions,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        FipText(
+                          title: AppLocalizations.of(context)!
+                              .alreadyhaveanaccount,
                           fontWeight: FontWeight.w500,
-                          TextColor: AppColors.disbaleIndicator,
+                          TextColor: Colors.red,
                           fontSize: 14.sp,
                         ),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      // Add  Sign Up logic here
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: Color(0xFFC12323),
-                      minimumSize: Size(380, 54),
-                    ),
-                    child: FipText(
-                      title: AppLocalizations.of(context)!.signup,
-                      fontWeight: FontWeight.w600,
-                      TextColor: AppColors.textcolor,
-                      fontSize: 24.sp,
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  Center(
-                    child: FipText(
-                      title: AppLocalizations.of(context)!.or,
-                      fontWeight: FontWeight.w500,
-                      TextColor: AppColors.buttonColor,
-                      fontSize: 18.sp,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: 15.w,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              color: AppColors.twitter,
-                            ),
-                            child: IconButton(
-                              icon: Icon(
-                                FontAwesomeIcons.twitter,
-                                color: Colors.white,
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => LoginScreen(),
                               ),
-                              onPressed: () {
-                                // Handle Twitter button press here
-                              },
-                            ),
-                          ),
-                          SizedBox(width: 8.w),
-                          Container(
-                            width: 15.w,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                color: AppColors.facebook),
-                            child: IconButton(
-                              icon: Icon(
-                                FontAwesomeIcons.facebook,
-                                color: AppColors.textcolor,
-                              ),
-                              onPressed: () {
-                                // Handle Facebook button press here
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          FipText(
-                            title: AppLocalizations.of(context)!
-                                .alreadyhaveanaccount,
+                            );
+                          },
+                          child: FipText(
+                            title: AppLocalizations.of(context)!.login,
                             fontWeight: FontWeight.w500,
-                            TextColor: AppColors.buttonColor,
+                            TextColor: Colors.blue,
                             fontSize: 14.sp,
                           ),
-                          TextButton(
-                            onPressed: () {
-                              // Navigate to the Login screen here
-                              FIP5Navigator.of(context)
-                                  .pushAndRemoveUntil(LoginScreen());
-                            },
-                            child: FipText(
-                              title: AppLocalizations.of(context)!.login,
-                              fontWeight: FontWeight.w500,
-                              TextColor: AppColors.buttonColor,
-                              fontSize: 14.sp,
-                            ),
-                          )
-                        ],
-                      ),
+                        )
+                      ],
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
@@ -292,60 +257,71 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 
-  Future<void> _showImagePickerBottomSheet() async {
-    showModalBottomSheet<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            ListTile(
-              leading: Icon(Icons.camera),
-              title: FipText(
-                title: AppLocalizations.of(context)!.takeaphoto,
-                fontWeight: FontWeight.w500,
-                TextColor: AppColors.buttonColor,
-                fontSize: 14.sp,
-              ),
-              // Text('Take a Photo'),
-              onTap: () async {
-                final picker = ImagePicker();
-                final pickedImage =
-                    await picker.pickImage(source: ImageSource.camera);
+  
 
-                if (pickedImage != null) {
-                  setState(() {
-                    _selectedImage = File(pickedImage.path);
-                  });
-                }
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.photo_library),
-              title: FipText(
-                title: AppLocalizations.of(context)!.choosefromgallery,
-                fontWeight: FontWeight.w500,
-                TextColor: AppColors.buttonColor,
-                fontSize: 14.sp,
+  
+  Widget _getProfileImageView() {
+  return InkWell(
+    onTap: () {
+      _showImagePickerBottomSheet(context);
+    },
+    child: Container(
+      width: 30.w,
+      height: 30.w,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        border: Border.all(color: Colors.black, width: 3),
+      ),
+      child: Center(
+        child: xFile == null
+            ? const Icon(Icons.photo)// Show default icon if no image selected
+            : ClipRRect(
+                borderRadius: BorderRadius.circular(100),
+                child: Image.file(
+                  File(xFile!.path),
+                  fit: BoxFit.fill,
+                ),
               ),
-              // Text('Choose from Gallery'),
-              onTap: () async {
-                final picker = ImagePicker();
-                final pickedImage =
-                    await picker.pickImage(source: ImageSource.gallery);
+      ),
+    ),
+  );
+}
+  // Function to display a bottom sheet with image source options (camera, gallery)
 
-                if (pickedImage != null) {
-                  setState(() {
-                    _selectedImage = File(pickedImage.path);
-                  });
-                }
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
+void _showImagePickerBottomSheet(BuildContext context) {
+  showModalBottomSheet<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          ListTile(
+            leading: Icon(Icons.camera),
+            title: Text('Take a Photo'),
+            onTap: () async {
+              Navigator.pop(context);
+              await _pickImage(ImageSource.camera);
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.photo_library),
+            title: Text('Choose from Gallery'),
+            onTap: () async {
+              Navigator.pop(context);
+              await _pickImage(ImageSource.gallery);
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+Future<void> _pickImage(ImageSource source) async {
+  ImagePicker picker = ImagePicker();
+  XFile? file = await picker.pickImage(source: source);
+  if (file != null) {
+    setState(() {
+      xFile = file;
+    });
+  }}
 }

@@ -20,7 +20,9 @@
     "choosefromgallery" : "اختر صورة من معرض الصور",
     "pleasechooseimage" :" الرجاء اختيار صورة ",
     "choosethelanguageyou" : "اختر اللغة التي",
-    "prefertouse" : "تفضل استخدامها "
+    "prefertouse" : "تفضل استخدامها ",
+    "profile" :     "الملف الشخصي",
+    "save" : "حفظ"
     }
 
 

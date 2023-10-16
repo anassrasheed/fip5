@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_key_in_widget_constructors
 
-import 'package:fip5/screens/help/help_screen.dart';
+import 'package:fip5/screens/new_home/home_task_ui.dart';
+import 'package:fip5/utils/helpers/fip5_navigator.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class GenderScreen extends StatefulWidget {
   const GenderScreen({Key? key});
@@ -125,13 +127,14 @@ class _GenderScreenState extends State<GenderScreen> {
               Spacer(),
               ElevatedButton(
                 onPressed: () {
+                  FIP5Navigator.of(Get.context!).pushAndRemoveUntil(HomeTaskUi());
                   
-                  Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => HelpScreen(),
-                            ),
-                          );
+                  // Navigator.pushReplacement(
+                  //           context,
+                  //           MaterialPageRoute(
+                  //             builder: (context) => HelpScreen(),
+                  //           ),
+                  //         );
                 },
                 style: ElevatedButton.styleFrom(
                   primary: Color(0xFFC12323),

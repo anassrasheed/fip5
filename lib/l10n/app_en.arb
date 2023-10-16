@@ -20,7 +20,11 @@
     "choosefromgallery" :    "Choose From Gallery ",
     "pleasechooseimage" :     "Please Choose Image",
     "choosethelanguageyou" :    "Choose The Language You",
-    "prefertouse" :     "Prefer To Use"
+    "prefertouse" :     "Prefer To Use",
+    "profile" :     "profile",
+    "save" : "Save"
+
+
 
     }
     

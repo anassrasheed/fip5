@@ -1,10 +1,8 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'package:fip5/resources/stringes_manager.dart';
+import 'package:fip5/config/app_colors.dart';
 import 'package:fip5/screens/authintication/login/login_controller.dart';
 import 'package:fip5/screens/authintication/signup/signup_screen.dart';
-import 'package:fip5/screens/gender/gender_screen.dart';
-import 'package:fip5/utils/helpers/fip5_navigator.dart';
 import 'package:fip5/utils/ui/common_views.dart';
 import 'package:fip5/utils/ui/fip5_text.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +10,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import '../../../config/app_colors.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key});
@@ -24,25 +20,25 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool isChecked = false;
-  TextEditingController _emailcontroller = TextEditingController();
-  TextEditingController _passwordcontroller = TextEditingController();
-  FocusNode _emailfocusnode = FocusNode();
-  FocusNode _passwordfocusnode = FocusNode();
-  bool _obscureText = false;
+  final TextEditingController _emailcontroller = TextEditingController();
+  final TextEditingController _passwordcontroller = TextEditingController();
+  final FocusNode _emailfocusnode = FocusNode();
+  final FocusNode _passwordfocusnode = FocusNode();
+  final FocusNode _mobileFocus = FocusNode();
+  bool _isPasswordObscure = true;
+
+  //bool _isPasswordObscure = true;
   LoginController loginController = Get.put(LoginController());
 // Initialize it to true to hide the password by default
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:
-          Color(0xFFF8F8F8), // Use the 0x prefix to specify a hexadecimal color
+      backgroundColor: Color(0xFFF8F8F8),
       appBar: AppBar(
-        backgroundColor: Color(
-            0xFFF8F8F8), // Use the 0x prefix to specify a hexadecimal color
+        backgroundColor: Color(0xFFF8F8F8),
         elevation: 0,
       ),
-
       body: SizedBox(
         height: 100.h,
         child: Padding(
@@ -61,14 +57,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
                       ),
-                      child: Text(AppString.fit),
+                      child: Text("Fit"),
                     ),
                     FipText(
-                      title: AppString.kit,
+                      title: "Kit",
                       fontWeight: FontWeight.bold,
                       fontSize: 36.sp,
                       TextColor: AppColors.buttonColor,
-                    )
+                    ),
                   ],
                 ),
                 FipText(
@@ -76,62 +72,82 @@ class _LoginScreenState extends State<LoginScreen> {
                   fontWeight: FontWeight.w500,
                   fontSize: 36.sp,
                 ),
-                SizedBox(
-                  height: 20.h,
+                SizedBox(height: 20.h),
+                //    Obx(
+                //   () => CommonViews().createTextFormField(
+                //       controller: _emailcontroller,
+                //       focusNode: _emailfocusnode,
+                //       label: "Email",
+                //       errorText: loginController.emailError.value.isEmpty
+                //           ? null
+                //           : loginController.emailError.value,
+                //       onSubmitted: (v) {
+                //         setState(() {});
+                //         _passwordfocusnode.requestFocus();
+                //       },
+                //       inputAction: TextInputAction.next),
+                // ),
+                Obx(
+                  () => CommonViews().createTextFormField(
+                    controller: _emailcontroller,
+                    focusNode: _emailfocusnode,
+                    label: "Email",
+                    errorText: loginController.emailError.value.isEmpty
+                        ? null
+                        : loginController.emailError.value,
+                    onSubmitted: (v) {
+                      String trimmedEmail =
+                          _emailcontroller.text.trim(); // Trim the email
+                      // Update the email controller with the trimmed email
+                      _emailcontroller.text = trimmedEmail;
+                      setState(() {});
+                      _passwordfocusnode.requestFocus();
+                    },
+                    inputAction: TextInputAction.next,
+                  ),
                 ),
-                CommonViews().textFormField(
-                    Controller: _emailcontroller,
-                    FocusNode: _emailfocusnode,
-                    Hinttext: AppLocalizations.of(context)!.emailid,
-                    keyboardtype: TextInputType.emailAddress,
-                    suffixicon: Icon(Icons.email)),
-                SizedBox(
-                  height: 20,
-                ),
-                CommonViews().textFormField(
-                    Controller: _passwordcontroller,
-                    FocusNode: _passwordfocusnode,
-                    Hinttext: AppLocalizations.of(context)!.password,
-                    suffixicon: GetBuilder<LoginController>(
-                      init: loginController,
-                        builder: (loginController) {
-                      return IconButton(
-                        //. If _obscureText is false, it shows the "visibility" icon (an eye), indicating that the password is visible.
 
-                        onPressed: () {
-                         loginController.passwordVisibility();
-                        },
-                        icon: Icon(
-                          _obscureText
-                              ? Icons.visibility
-                              : Icons.visibility_off,
-                          color:
-                              Colors.grey, // Customize the icon color as needed
-                        ),
-                      );
-                    })),
-                SizedBox(
-                  height: 10,
+                SizedBox(height: 20),
+                Obx(
+                  () => CommonViews().createTextFormField(
+                      controller: _passwordcontroller,
+                      focusNode: _passwordfocusnode,
+                      label: "Password",
+                      errorText: loginController.emailError.value.isEmpty
+                          ? null
+                          : loginController.emailError.value,
+                      isObscure: _isPasswordObscure,
+                      suffixIcon: InkWell(
+                          child: Icon(
+                              _isPasswordObscure
+                                  ? Icons.visibility_outlined
+                                  : Icons.visibility_off_outlined,
+                              color: Colors.brown),
+                          onTap: () {
+                            setState(() {
+                              _isPasswordObscure = !_isPasswordObscure;
+                            });
+                          }),
+                      onSubmitted: (v) {
+                        _mobileFocus.requestFocus();
+                      },
+                      inputAction: TextInputAction.next),
                 ),
+                SizedBox(height: 10),
                 FipText(
                   title: AppLocalizations.of(context)!.forgotpassword,
                   fontWeight: FontWeight.w500,
                   fontSize: 18.sp,
                 ),
-                SizedBox(
-                  height: 5.h,
-                ),
+                SizedBox(height: 5.h),
                 CommonViews().createButton(
                   title: AppLocalizations.of(context)!.login,
                   onPressed: () {
-                    // Navigate to the Login screen here
-                    FIP5Navigator.of(context)
-                        .pushAndRemoveUntil(GenderScreen());
+                    loginController.login(
+                        _emailcontroller.text, _passwordcontroller.text);
                   },
                 ),
-                SizedBox(
-                  height: 10,
-                ),
+                SizedBox(height: 10),
                 Center(
                   child: FipText(
                     title: AppLocalizations.of(context)!.or,
@@ -198,7 +214,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         TextButton(
                           onPressed: () {
-                            // Navigate to the Login screen here
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
