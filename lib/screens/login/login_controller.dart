@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fip5/config/current_session.dart';
 import 'package:fip5/config/firebase_error/firebase_error_messages.dart';
@@ -9,6 +11,9 @@ import 'package:fip5/utils/ui/progress_hud.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+
+import 'login_response.dart';
 
 class LoginController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -28,13 +33,57 @@ class LoginController extends GetxController {
           UserModel? model = await _getDataFromFirestore(response.user!.uid);
           ProgressHud.shared.stopLoading();
           if (model != null) {
-            CurrentSession().user=model;
+            CurrentSession().user = model;
             CommonViews().showSnackBar("Success", "Login Successful");
             // navigation
             FIP5Navigator.of(Get.context!).pushAndRemoveUntil(HomeScreen());
             // save user
           } else {
             CommonViews().showSnackBar("Failed", "Login Failed");
+          }
+        }
+      }
+    } catch (error) {
+      ProgressHud.shared.stopLoading();
+      if (error is FirebaseException) {
+        print(error.code);
+        CommonViews()
+            .showSnackBar("Failed", FirebaseErrors.getMessage(error.code));
+      } else {
+        CommonViews().showSnackBar("Failed", error.toString());
+      }
+    }
+  }
+
+  void loginWithApi(String email, String password) async {
+    try {
+      if (isValid(email, password)) {
+        ProgressHud.shared.startLoading(Get.context);
+
+        var url = Uri.parse(
+            'http://newcamels.albatross-solution.com/API/App/MasterCustomerInformation/Login');
+        Map<String, dynamic> body = {
+          "masterCustomerInformationUserName": email,
+          "masterCustomerInformationPassword": password,
+          "deviceId": "string",
+          "deviceType": "string",
+          "deviceOs": "string",
+          "deviceToken": "string",
+          "appVersion": "string"
+        };
+        var response = await http.post(url, body: json.encode(body), headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+        });
+        ProgressHud.shared.stopLoading();
+        if (response.statusCode == 200) {
+          LoginResponse myResp = LoginResponse.fromJson(response.body);
+          if (myResp.success == true) {
+            CurrentSession().myUser=myResp.result;
+            FIP5Navigator.of(Get.context!).pushAndRemoveUntil(HomeScreen());
+            return;
+          } else {
+            CommonViews().showSnackBar("Failed", myResp.message ?? '');
           }
         }
       }
@@ -77,3 +126,13 @@ class LoginController extends GetxController {
     }
   }
 }
+
+// get token
+// firebase CRUD create read   update delete
+// firebase notitfication
+// firebase ai
+
+
+// upload to store
+ // google
+ // apple

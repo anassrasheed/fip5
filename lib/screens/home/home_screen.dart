@@ -31,12 +31,15 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Center(
           child: Column(
         children: [
-          CircleAvatar(
-              backgroundImage: NetworkImage(
-                CurrentSession().user!.imgUrl,
-              ),
-              radius: 80),
-          Text("Hello User that number " + CurrentSession().user!.mobile),
+          // CircleAvatar(
+          //     backgroundImage: NetworkImage(
+          //       CurrentSession().user!.imgUrl,
+          //     ),
+          //     radius: 80),
+          Text("Hello User " +
+              CurrentSession().myUser!.masterCustomerInformationFullName!),
+          Text("Hello User that number " +
+              CurrentSession().myUser!.masterCustomerInformationMobileNo!),
           Text("BMP $bpm"),
           Text("gloc $gloc"),
           Text("temp $temp"),

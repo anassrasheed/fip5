@@ -46,15 +46,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 title: "Register",
                 onPressed: () async {
 
-                  File file=File(xFile!.path);
+                  // File file=File(xFile!.path);
                   UserModel model = UserModel(
                     email: _emailController.text,
                     password: _passwordController.text,
                     imgUrl: "",
                     mobile: _mobileController.text,
                   );
-                  model.file=file;
-                  controller.registerWithEmailAndPassword(model);
+                  // model.file=file;
+                  controller.registerWithApi(model);
                 })),
       ),
       body: Form(

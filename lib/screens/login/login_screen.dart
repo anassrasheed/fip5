@@ -24,8 +24,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void initState() {
-    _emailController.text="shoroq@gmail.com";
-    _passwordController.text="123456789";
+    _emailController.text="fip5";
+    _passwordController.text="123456";
     super.initState();
   }
   @override
@@ -79,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
           CommonViews().createButton(
               title: "Login",
               onPressed: () {
-                controller.login(_emailController.text, _passwordController.text);
+                controller.loginWithApi(_emailController.text, _passwordController.text);
               }),
           CommonViews().createButton(
               title: "Register",

@@ -13,6 +13,7 @@ import 'firebase_options.dart';
 import 'getx/navigators/screen_a.dart';
 import 'l10n/app_language.dart';
 import 'old/generated/l10n.dart';
+import 'screens/products/products_screen.dart';
 import 'screens/register/register_screen.dart';
 
 void main() async {
