@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fip5/config/api_config.dart';
 import 'package:fip5/config/current_session.dart';
 import 'package:fip5/config/firebase_error/firebase_error_messages.dart';
 import 'package:fip5/screens/home/home_screen.dart';
@@ -60,8 +61,7 @@ class LoginController extends GetxController {
       if (isValid(email, password)) {
         ProgressHud.shared.startLoading(Get.context);
 
-        var url = Uri.parse(
-            'http://newcamels.albatross-solution.com/API/App/MasterCustomerInformation/Login');
+        var url = Uri.parse(ApiConfig.login);
         Map<String, dynamic> body = {
           "masterCustomerInformationUserName": email,
           "masterCustomerInformationPassword": password,
@@ -79,7 +79,7 @@ class LoginController extends GetxController {
         if (response.statusCode == 200) {
           LoginResponse myResp = LoginResponse.fromJson(response.body);
           if (myResp.success == true) {
-            CurrentSession().myUser=myResp.result;
+            CurrentSession().myUser = myResp.result;
             FIP5Navigator.of(Get.context!).pushAndRemoveUntil(HomeScreen());
             return;
           } else {
@@ -125,14 +125,48 @@ class LoginController extends GetxController {
       return null;
     }
   }
+
+  void getDataWhereId() async {
+    try {
+      ProgressHud.shared.startLoading(Get.context);
+
+      var url = Uri.parse(ApiConfig.getUserById);
+
+      var response = await http.post(url, body: json.encode({}), headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Authorization": "Bearer ${CurrentSession().myUser!.token!}",
+      });
+      ProgressHud.shared.stopLoading();
+      if (response.statusCode == 200) {
+        LoginResponse myResp = LoginResponse.fromJson(response.body);
+        if (myResp.success == true) {
+          CommonViews().showSnackBar("Success",
+              "Welcome to our app ${myResp.result!.masterCustomerInformationFullName!}");
+          return;
+        } else {
+          CommonViews().showSnackBar("Failed", myResp.message ?? '');
+        }
+      }
+    } catch (error) {
+      ProgressHud.shared.stopLoading();
+      if (error is FirebaseException) {
+        print(error.code);
+        CommonViews()
+            .showSnackBar("Failed", FirebaseErrors.getMessage(error.code));
+      } else {
+        CommonViews().showSnackBar("Failed", error.toString());
+      }
+    }
+  }
 }
 
-// get token
-// firebase CRUD create read   update delete
-// firebase notitfication
-// firebase ai
-
+// get token DONE
+// firebase firestore CRUD create read   update delete DONE
+// firebase notitfication // jahez DONE
+// firebase ai mlkit
+// firebase auth otp // paid  mobile
 
 // upload to store
- // google
- // apple
+// google
+// apple

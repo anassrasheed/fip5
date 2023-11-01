@@ -54,7 +54,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     mobile: _mobileController.text,
                   );
                   // model.file=file;
-                  controller.registerWithApi(model);
+                  controller.registerWithEmailAndPassword(model);
                 })),
       ),
       body: Form(

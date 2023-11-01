@@ -1,13 +1,90 @@
 {
   "project_info": {
     "project_number": "116127087402",
+    "firebase_url": "https://fip5-9cbf9-default-rtdb.firebaseio.com",
     "project_id": "fip5-9cbf9",
     "storage_bucket": "fip5-9cbf9.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:116127087402:android:06bbf3bd25a920ae997c53",
+        "mobilesdk_app_id": "1:116127087402:android:3e3f73a1ade55fb8997c53",
+        "android_client_info": {
+          "package_name": "com.example.flutter_p1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSmZVV5ID3QVz6mUfFZnrKggOTSrEN0Q4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:116127087402:android:9fd13aed1dbe9cf5997c53",
+        "android_client_info": {
+          "package_name": "com.example.roome"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSmZVV5ID3QVz6mUfFZnrKggOTSrEN0Q4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:116127087402:android:dac14b3a793ac15f997c53",
+        "android_client_info": {
+          "package_name": "com.example.two_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSmZVV5ID3QVz6mUfFZnrKggOTSrEN0Q4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:116127087402:android:422d1ba3fad17554997c53",
+        "android_client_info": {
+          "package_name": "com.example.two_app_badeel"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSmZVV5ID3QVz6mUfFZnrKggOTSrEN0Q4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:116127087402:android:211d2fcc39ca6f70997c53",
         "android_client_info": {
           "package_name": "com.iqra.app.fip5"
         }

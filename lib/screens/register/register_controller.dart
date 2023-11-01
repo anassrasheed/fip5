@@ -122,6 +122,7 @@ class RegisterController extends GetxController {
     try {
       var collection = FirebaseFirestore.instance.collection("users");
       await collection.add(userModel.toMap());
+
       ProgressHud.shared.stopLoading();
       CommonViews().showSnackBar("Success", "Registration Successful");
       FIP5Navigator.of(Get.context!).pushAndRemoveUntil(LoginScreen());

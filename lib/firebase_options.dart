@@ -51,9 +51,10 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBSmZVV5ID3QVz6mUfFZnrKggOTSrEN0Q4',
-    appId: '1:116127087402:android:06bbf3bd25a920ae997c53',
+    appId: '1:116127087402:android:211d2fcc39ca6f70997c53',
     messagingSenderId: '116127087402',
     projectId: 'fip5-9cbf9',
+    databaseURL: 'https://fip5-9cbf9-default-rtdb.firebaseio.com',
     storageBucket: 'fip5-9cbf9.appspot.com',
   );
 
@@ -62,6 +63,7 @@ class DefaultFirebaseOptions {
     appId: '1:116127087402:ios:5fe192782b589b2d997c53',
     messagingSenderId: '116127087402',
     projectId: 'fip5-9cbf9',
+    databaseURL: 'https://fip5-9cbf9-default-rtdb.firebaseio.com',
     storageBucket: 'fip5-9cbf9.appspot.com',
     iosBundleId: 'com.iqra.app.fip5',
   );

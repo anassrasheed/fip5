@@ -3,7 +3,9 @@ import 'package:fip5/getx/counter_example/couter_controller.dart';
 import 'package:fip5/getx/sum_example/sum_view.dart';
 import 'package:fip5/screens/login/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -13,12 +15,55 @@ import 'firebase_options.dart';
 import 'getx/navigators/screen_a.dart';
 import 'l10n/app_language.dart';
 import 'old/generated/l10n.dart';
-import 'screens/products/products_screen.dart';
-import 'screens/register/register_screen.dart';
+
+const AndroidNotificationChannel androidChannel = AndroidNotificationChannel(
+    'android_channel', // id
+    'High Importance Notifications', // title
+    // 'This channel is used for important notifications.', // description
+    importance: Importance.high,
+    playSound: true);
+
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+FlutterLocalNotificationsPlugin();
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+  print('A bg message just showed up :  ${message.messageId} ${message
+      .notification!.title}');
+  showNotification(
+      message.notification!.title ?? '', message.notification!.body ?? '');
+}
+
+void showNotification(String title, String body) {
+  flutterLocalNotificationsPlugin.show(
+      0,
+      title,
+      body,
+      NotificationDetails(
+          android: AndroidNotificationDetails(
+              androidChannel.id, androidChannel.name,
+              importance: Importance.max,
+              color: Colors.blue,
+              playSound: true,
+              icon: '@mipmap/ic_launcher')));
+}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // be ready firebase
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+
+  await flutterLocalNotificationsPlugin
+      .resolvePlatformSpecificImplementation<
+      AndroidFlutterLocalNotificationsPlugin>()
+      ?.createNotificationChannel(androidChannel);
+
+  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+    alert: true,
+    badge: true,
+    sound: true,
+  );
   runApp(ScopedModel<AppLanguage>(
     model: AppLanguage(),
     child: const MyApp(),
@@ -33,6 +78,30 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
+  @override
+  void initState() {
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      RemoteNotification notification = message.notification!;
+      AndroidNotification android = message.notification!.android!;
+      if (notification != null && android != null) {
+        flutterLocalNotificationsPlugin.show(
+            notification.hashCode,
+            notification.title,
+            notification.body,
+            NotificationDetails(
+              android: AndroidNotificationDetails(
+                androidChannel.id,
+                androidChannel.name,
+                color: Colors.blue,
+                playSound: true,
+                icon: '@mipmap/ic_launcher',
+              ),
+            ));
+      }
+    });
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return ScopedModelDescendant<AppLanguage>(builder: (context, child, model) {
@@ -48,7 +117,7 @@ class _MyAppState extends State<MyApp> {
             GlobalWidgetsLocalizations.delegate,
           ],
           theme: ThemeData(
-              // colors
+            // colors
               primaryColor: AppColors.primaryColor,
               accentColor: Colors.black,
               backgroundColor: Colors.white,
@@ -109,13 +178,19 @@ class FirstScreen extends StatelessWidget {
         backgroundColor: Colors.red,
         leadingWidth: 150,
         iconTheme:
-            const IconThemeData(color: Colors.green, size: 20, weight: 20),
+        const IconThemeData(color: Colors.green, size: 20, weight: 20),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
         // leadingWidth: ,
       ),
       body: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
+          width: MediaQuery
+              .of(context)
+              .size
+              .width,
+          height: MediaQuery
+              .of(context)
+              .size
+              .height,
           child: Container(
             color: Colors.yellow,
             child: Row(
