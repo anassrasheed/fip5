@@ -86,10 +86,10 @@ class _InputUiState extends State<InputUi> {
                   borderRadius: BorderRadius.circular(12),
                   borderSide: const BorderSide(
                       color: Colors.red, width: 5, strokeAlign: 5)),
-              label: Text("Username"),
+              label: const Text("Username"),
               hintText: "Username",
               // prefixIcon: Icon(Icons.add),
-              suffixIcon: Icon(Icons.add),
+              suffixIcon: const Icon(Icons.add),
               // prefix: Text("+962"),
               // suffix: Text("@zainCash"),
               prefixText: "asd",
@@ -97,11 +97,11 @@ class _InputUiState extends State<InputUi> {
               isDense: true,
               fillColor: Colors.green,
               filled: false,
-              contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 50),
+              contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 50),
               errorText: _userNameError,
             ),
             onTap: () {
-              print("TextField called");
+              debugPrint("TextField called");
             },
             onChanged: (v) {
               setState(() {
@@ -113,7 +113,7 @@ class _InputUiState extends State<InputUi> {
               });
             },
             onSubmitted: (v) {
-              print("On Submitted called");
+              debugPrint("On Submitted called");
             },
           ),
           Padding(
@@ -127,8 +127,8 @@ class _InputUiState extends State<InputUi> {
                   width: 15,
                   height: 15,
                 ),
-                SizedBox(width: 10),
-                Text("At least 3 special charachters")
+                const SizedBox(width: 10),
+                const Text("At least 3 special charachters")
               ],
             ),
           ),
@@ -143,13 +143,13 @@ class _InputUiState extends State<InputUi> {
                   width: 15,
                   height: 15,
                 ),
-                SizedBox(width: 10),
-                Text("At least 3 small chars")
+                const SizedBox(width: 10),
+                const Text("At least 3 small chars")
               ],
             ),
           ),
 
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           TextField(
@@ -206,10 +206,10 @@ class _InputUiState extends State<InputUi> {
                   borderRadius: BorderRadius.circular(12),
                   borderSide: const BorderSide(
                       color: Colors.red, width: 5, strokeAlign: 5)),
-              label: Text("password"),
+              label: const Text("password"),
               hintText: "password",
               // prefixIcon: Icon(Icons.add),
-              suffixIcon: Icon(Icons.add),
+              suffixIcon: const Icon(Icons.add),
               // prefix: Text("+962"),
               // suffix: Text("@zainCash"),
               prefixText: "asd",
@@ -217,7 +217,7 @@ class _InputUiState extends State<InputUi> {
               isDense: true,
               fillColor: Colors.green,
               filled: false,
-              contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 50),
+              contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 50),
               errorText: _passwordError,
             ),
             onTap: () {
@@ -262,7 +262,7 @@ class _InputUiState extends State<InputUi> {
                   isClicked = true;
                 });
               },
-              child: Text("submit")),
+              child: const Text("submit")),
           if (isClicked == true) Text(_usernameController.text),
         ],
       )),

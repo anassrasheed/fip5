@@ -1,5 +1,5 @@
 import 'package:fip5/getx/sum_example/sum_result.dart';
-import 'package:fip5/main_ui.dart';
+import 'package:fip5/main.dart';
 import 'package:fip5/utils/ui/common_views.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

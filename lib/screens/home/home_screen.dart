@@ -3,12 +3,11 @@ import 'package:fip5/config/current_session.dart';
 import 'package:fip5/models/rate_model.dart';
 import 'package:fip5/screens/login/login_controller.dart';
 import 'package:fip5/utils/ui/common_views.dart';
+import 'package:fip5/utils/ui/flutter_notification_view.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 
-import '../../main_ui.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -103,17 +102,10 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       _counter++;
     });
-    flutterLocalNotificationsPlugin.show(
-        0,
-        "Hello User $_counter",
-        "How you doing ?",
-        NotificationDetails(
-            android: AndroidNotificationDetails(
-                androidChannel.id, androidChannel.name,
-                importance: Importance.max,
-                color: Colors.blue,
-                playSound: true,
-                icon: '@mipmap/ic_launcher')));
+    FlutterNotificationView().showNotification(
+      "Hello User $_counter",
+      "How you doing ?",
+    );
   }
 
   void writeDataToFirebase() async {
